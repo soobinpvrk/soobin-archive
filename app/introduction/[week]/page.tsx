@@ -3,13 +3,16 @@ import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getAllWeeks } from "@/lib/weeks";
 import { FigureWithCaption } from "@/components/FigureWithCaption";
+import { LifeGraph } from "@/components/LifeGraph";
 import styles from "./page.module.css";
 
 export function generateStaticParams() {
   return getAllWeeks().map((w) => ({ week: String(w.week) }));
 }
 
-export default async function WeekPage({ params }: PageProps<"/[week]">) {
+export default async function WeekPage({
+  params,
+}: PageProps<"/introduction/[week]">) {
   const { week } = await params;
   const weekNumber = Number(week);
 
@@ -23,7 +26,7 @@ export default async function WeekPage({ params }: PageProps<"/[week]">) {
 
   return (
     <article className={styles.week}>
-      <Link href="/" className={styles.back}>
+      <Link href="/introduction" className={styles.back}>
         ← 전체 목록
       </Link>
 
@@ -38,19 +41,22 @@ export default async function WeekPage({ params }: PageProps<"/[week]">) {
       </header>
 
       <div className={styles.body}>
-        <MDXRemote source={current.content} components={{ FigureWithCaption }} />
+        <MDXRemote
+          source={current.content}
+          components={{ FigureWithCaption, LifeGraph }}
+        />
       </div>
 
       <nav className={styles.pager}>
         {prev ? (
-          <Link href={`/${prev.week}`} className={styles.pagerLink}>
+          <Link href={`/introduction/${prev.week}`} className={styles.pagerLink}>
             ← Week {String(prev.week).padStart(2, "0")} · {prev.constraint}
           </Link>
         ) : (
           <span />
         )}
         {next ? (
-          <Link href={`/${next.week}`} className={styles.pagerLink}>
+          <Link href={`/introduction/${next.week}`} className={styles.pagerLink}>
             Week {String(next.week).padStart(2, "0")} · {next.constraint} →
           </Link>
         ) : (

@@ -1,0 +1,219 @@
+.stage {
+  --size: clamp(96px, 11vw, 148px);
+  --travel: clamp(90px, 16vw, 190px);
+  --round: 0;
+  --dur: 11s;
+  --cloth: #563e30;
+  --cloth-deep: #382820;
+
+  position: relative;
+  width: 100%;
+  height: calc(var(--size) * 2.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 920px;
+  perspective-origin: 50% 45%;
+  overflow: hidden;
+
+  opacity: 0;
+  animation: appear 1.2s ease 0.35s forwards;
+}
+
+@keyframes appear {
+  to {
+    opacity: 1;
+  }
+}
+
+.roller {
+  position: relative;
+  width: var(--size);
+  height: var(--size);
+  transform-style: preserve-3d;
+  animation: travel var(--dur) ease-in-out infinite;
+}
+
+/* filter를 걸면 preserve-3d가 평탄화된다. 그림자는 .drop이 맡는다. */
+.cube {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  animation: roll var(--dur) ease-in-out infinite;
+}
+
+.shell,
+.core {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+/* scale()이 아니라 scale3d(). Z를 함께 줄여야 안쪽 큐브가 얼굴을 덮지 않는다. */
+.core {
+  transform: scale3d(0.97, 0.97, 0.97);
+}
+
+.face {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--round);
+  background-color: var(--cloth);
+  background-size: cover;
+  background-position: center;
+  backface-visibility: hidden;
+  overflow: hidden;
+}
+
+/* 원단 직조 결 */
+.face::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.05) 0 1px,
+      transparent 1px 3px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.055) 0 1px,
+      transparent 1px 3px
+    );
+  mix-blend-mode: overlay;
+}
+
+/* 솜이 들어찬 볼륨 음영 */
+.face::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+      118% 112% at 30% 20%,
+      rgba(255, 255, 255, 0.26),
+      transparent 56%
+    ),
+    radial-gradient(100% 100% at 50% 52%, transparent 30%, rgba(0, 0, 0, 0.44) 100%);
+}
+
+.core .face {
+  background-image: none !important;
+  background-color: var(--cloth-deep);
+  border-radius: calc(var(--round) * 0.45);
+}
+
+.core .face::after {
+  opacity: 0.5;
+}
+
+.front {
+  transform: translateZ(calc(var(--size) / 2));
+  background-image: url("/plush/front.jpg");
+}
+.back {
+  transform: rotateY(180deg) translateZ(calc(var(--size) / 2)) scaleX(-1);
+  background-image: url("/plush/back.jpg");
+}
+.right {
+  transform: rotateY(90deg) translateZ(calc(var(--size) / 2));
+  background-image: url("/plush/right.jpg");
+}
+.left {
+  transform: rotateY(-90deg) translateZ(calc(var(--size) / 2));
+  background-image: url("/plush/left.jpg");
+}
+.top {
+  transform: rotateX(90deg) translateZ(calc(var(--size) / 2));
+}
+.bottom {
+  transform: rotateX(-90deg) translateZ(calc(var(--size) / 2));
+}
+
+.drop {
+  position: absolute;
+  bottom: calc(50% - var(--size) * 0.78);
+  left: 50%;
+  width: calc(var(--size) * 1.05);
+  height: 16px;
+  margin-left: calc(var(--size) * -0.525);
+  border-radius: 50%;
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(0, 0, 0, 0.9),
+    transparent 70%
+  );
+  filter: blur(7px);
+  animation: shade var(--dur) ease-in-out infinite;
+}
+
+/* 바닥에 닿는 양 끝에서 납작해지고, 공중에서 늘어난다 */
+@keyframes travel {
+  0% {
+    transform: translate3d(calc(var(--travel) * -1), 0, 0) scale3d(1.06, 0.94, 1);
+  }
+  25% {
+    transform: translate3d(0, -13px, 0) scale3d(0.97, 1.04, 1);
+  }
+  50% {
+    transform: translate3d(var(--travel), 0, 0) scale3d(1.06, 0.94, 1);
+  }
+  75% {
+    transform: translate3d(0, -13px, 0) scale3d(0.97, 1.04, 1);
+  }
+  100% {
+    transform: translate3d(calc(var(--travel) * -1), 0, 0) scale3d(1.06, 0.94, 1);
+  }
+}
+
+/* 오른쪽으로 굴러갔다가, 되돌아올 때 회전도 역으로 풀린다 */
+@keyframes roll {
+  0% {
+    transform: rotateX(-7deg) rotateY(0deg) rotateZ(-3deg);
+  }
+  50% {
+    transform: rotateX(-7deg) rotateY(360deg) rotateZ(3deg);
+  }
+  100% {
+    transform: rotateX(-7deg) rotateY(0deg) rotateZ(-3deg);
+  }
+}
+
+@keyframes shade {
+  0% {
+    transform: translateX(calc(var(--travel) * -1)) scale(1.05);
+    opacity: 0.95;
+  }
+  25% {
+    transform: translateX(0) scale(0.84);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translateX(var(--travel)) scale(1.05);
+    opacity: 0.95;
+  }
+  75% {
+    transform: translateX(0) scale(0.84);
+    opacity: 0.55;
+  }
+  100% {
+    transform: translateX(calc(var(--travel) * -1)) scale(1.05);
+    opacity: 0.95;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage {
+    opacity: 1;
+    animation: none;
+  }
+  .roller,
+  .cube,
+  .drop {
+    animation: none;
+  }
+  .cube {
+    transform: rotateX(-11deg) rotateY(-24deg);
+  }
+}
