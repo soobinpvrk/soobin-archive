@@ -1,5 +1,5 @@
 {
-  "name": "phi-archive",
+  "name": "self-introduction",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,7 +9,10 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "next": "16.3.5",
+    "@types/mdx": "^2.0.14",
+    "gray-matter": "^4.0.3",
+    "next": "^15.5.25",
+    "next-mdx-remote": "^6.0.0",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },
@@ -18,7 +21,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.3.5",
+    "eslint-config-next": "^15.5.25",
     "typescript": "^5"
   }
 }

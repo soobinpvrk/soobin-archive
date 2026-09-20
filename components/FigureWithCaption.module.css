@@ -1,0 +1,17 @@
+.figure {
+  margin: 2em 0;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.caption {
+  margin-top: 0.6em;
+  font-style: italic;
+  font-size: 0.9em;
+  color: var(--color-text-dim);
+  line-height: 1.6;
+}

@@ -1,0 +1,48 @@
+.week {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 48px var(--gutter) 96px;
+}
+
+.back {
+  display: inline-block;
+  font-size: 0.9em;
+  color: var(--color-text-dim);
+  margin-bottom: 3em;
+}
+
+.header {
+  margin-bottom: 3em;
+}
+
+.weekLabel {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--color-text-dim);
+  margin-bottom: 0.6em;
+}
+
+.title {
+  font-size: 1.8em;
+  margin-bottom: 0.5em;
+}
+
+.meta {
+  color: var(--color-text-dim);
+}
+
+.body {
+  margin-bottom: 4em;
+}
+
+.pager {
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+  padding-top: 2em;
+  border-top: 1px solid var(--color-border);
+}
+
+.pagerLink {
+  font-size: 0.95em;
+}
