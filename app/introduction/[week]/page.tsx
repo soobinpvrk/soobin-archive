@@ -4,6 +4,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { getAllWeeks } from "@/lib/weeks";
 import { FigureWithCaption } from "@/components/FigureWithCaption";
 import { LifeGraph } from "@/components/LifeGraph";
+import { QA } from "@/components/QA";
 import styles from "./page.module.css";
 
 export function generateStaticParams() {
@@ -43,7 +44,7 @@ export default async function WeekPage({
       <div className={styles.body}>
         <MDXRemote
           source={current.content}
-          components={{ FigureWithCaption, LifeGraph }}
+          components={{ FigureWithCaption, LifeGraph, QA }}
         />
       </div>
 
