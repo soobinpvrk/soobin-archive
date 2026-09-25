@@ -7,7 +7,7 @@
 .number {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: 0.78rem;
+  font-size: 0.95rem;
   letter-spacing: 0.08em;
   color: #6e6e6e;
   margin: 0 0 0.6em;
@@ -16,12 +16,12 @@
 .question {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 1.15rem;
+  font-size: 1.3rem;
   line-height: 1.4;
   letter-spacing: 0.01em;
   color: var(--color-text);
+  /* 한 줄로 두기 위해 폭 제한을 두지 않는다. 화면이 좁아지면 자연스럽게 접힌다. */
   text-wrap: balance;
-  max-width: 34ch;
   margin: 0;
 }
 
@@ -43,6 +43,7 @@
 
 .answer {
   margin-top: 1em;
+  max-width: 62ch;
   color: #c8c8c8;
 }
 

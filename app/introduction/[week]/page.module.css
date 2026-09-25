@@ -1,5 +1,6 @@
+/* 질문 한 줄이 접히지 않으려면 본문 기본 폭(680px)으로는 모자라다. */
 .week {
-  max-width: var(--content-width);
+  max-width: 820px;
   margin: 0 auto;
   padding: 48px var(--gutter) 96px;
 }
