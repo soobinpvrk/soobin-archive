@@ -7,8 +7,10 @@
   padding: 0 var(--gutter);
 }
 
+/* 가운데 이름만 Zalando Sans Expanded를 유지한다.
+   나머지 영문은 globals.css의 --font-display(Helvetica Neue). */
 .title {
-  font-family: var(--font-display);
+  font-family: var(--font-signature);
   font-size: clamp(2rem, 6vw, 4.5rem);
   font-weight: 400;
   color: #6e6e6e;

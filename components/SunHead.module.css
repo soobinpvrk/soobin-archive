@@ -1,0 +1,87 @@
+.sun {
+  --sun: clamp(104px, 12vw, 152px);
+
+  position: relative;
+  width: var(--sun);
+  height: var(--sun);
+  display: grid;
+  place-items: center;
+  margin-bottom: clamp(36px, 5vw, 56px);
+
+  opacity: 0;
+  animation: appear 1.4s ease 0.2s forwards;
+}
+
+@keyframes appear {
+  to {
+    opacity: 1;
+  }
+}
+
+/* 가늘고 긴 빛살. 한 바퀴에 90초 */
+.rays {
+  position: absolute;
+  inset: -85%;
+  background: repeating-conic-gradient(
+    from 0deg,
+    rgba(255, 198, 126, 0.3) 0deg 0.7deg,
+    transparent 0.7deg 6deg
+  );
+  -webkit-mask: radial-gradient(
+    closest-side,
+    transparent 30%,
+    #000 46%,
+    transparent 96%
+  );
+  mask: radial-gradient(closest-side, transparent 30%, #000 46%, transparent 96%);
+  animation: spin 90s linear infinite;
+}
+
+/* 얼굴 둘레에서 번지는 온기 */
+.glow {
+  position: absolute;
+  inset: -42%;
+  background: radial-gradient(
+    closest-side,
+    rgba(255, 190, 110, 0.5),
+    rgba(255, 146, 62, 0.16) 52%,
+    transparent 76%
+  );
+  animation: breathe 7s ease-in-out infinite;
+}
+
+.face {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sun {
+    opacity: 1;
+    animation: none;
+  }
+  .rays,
+  .glow {
+    animation: none;
+  }
+}

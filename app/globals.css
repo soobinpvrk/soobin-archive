@@ -1,12 +1,19 @@
 /*
- * 폰트 변수는 이 두 줄이 전부다. 실제 폰트 선언은 app/fonts.ts 한 곳에서만
- * 하고, 이 파일을 포함한 모든 CSS는 --font-display / --font-body 두 변수만
- * 참조한다. 폰트를 교체할 때는 app/fonts.ts와 이 :root 블록만 손대면 된다.
+ * 실제 폰트 선언은 app/fonts.ts 한 곳에서만 하고, 이 파일을 포함한 모든
+ * CSS는 아래 세 변수만 참조한다. --font-signature는 메인의 이름 한 곳,
+ * --font-display는 그 밖의 영문, --font-body는 본문이다.
+ * 폰트를 교체할 때는 app/fonts.ts와 이 :root 블록만 손대면 된다.
  */
 :root {
-  --font-display: var(--font-zalando-sans-expanded), var(--font-pretendard),
+  /* 가운데 이름 한 곳에만 쓰는 서명용 서체 */
+  --font-signature: var(--font-zalando-sans-expanded), var(--font-pretendard),
     sans-serif;
-  --font-body: var(--font-pretendard), var(--font-zalando-sans-expanded),
+  /* 나머지 영문 전부. Helvetica Neue는 웹폰트가 아니라 시스템 서체라
+     macOS/iOS에서만 그대로 나오고, 없는 환경은 Helvetica → Arial 순으로
+     대체된다. 한글 글리프가 없으므로 Pretendard가 뒤를 받는다. */
+  --font-display: "Helvetica Neue", Helvetica, Arial, var(--font-pretendard),
+    sans-serif;
+  --font-body: var(--font-pretendard), "Helvetica Neue", Helvetica, Arial,
     sans-serif;
 
   --color-bg: #000000;
