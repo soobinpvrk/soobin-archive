@@ -22,45 +22,65 @@ export default async function WeekPage({
   if (index === -1) notFound();
 
   const current = weeks[index];
-  const prev = index > 0 ? weeks[index - 1] : undefined;
-  const next = index < weeks.length - 1 ? weeks[index + 1] : undefined;
 
   return (
-    <article className={styles.week}>
-      <Link href="/introduction" className={styles.back}>
-        ← 전체 목록
-      </Link>
+    <main className={styles.layout}>
+      <aside className={styles.toc}>
+        <nav aria-label="자기소개 주차 목차">
+          <ol className={styles.tocList}>
+            {weeks.map((entry) => {
+              const isCurrent = entry.week === current.week;
+              const itemClassName = [
+                styles.tocItem,
+                entry.status !== "done" ? styles.upcoming : "",
+                isCurrent ? styles.current : "",
+              ]
+                .filter(Boolean)
+                .join(" ");
+              const label = (
+                <>
+                  <span className={styles.tocNumber}>
+                    {String(entry.week).padStart(2, "0")}
+                  </span>
+                  <span>{entry.constraint}</span>
+                </>
+              );
 
-      <header className={styles.header}>
-        <p className={styles.weekLabel}>
-          Week {String(current.week).padStart(2, "0")}
-        </p>
-        <h1 className={styles.title}>{current.constraint}</h1>
-      </header>
+              return (
+                <li key={entry.week}>
+                  {entry.status === "done" ? (
+                    <Link
+                      href={`/introduction/${entry.week}`}
+                      className={itemClassName}
+                      aria-current={isCurrent ? "page" : undefined}
+                    >
+                      {label}
+                    </Link>
+                  ) : (
+                    <span className={itemClassName}>{label}</span>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+        </nav>
+      </aside>
 
-      <div className={styles.body}>
-        <MDXRemote
-          source={current.content}
-          components={{ FigureWithCaption, LifeGraph, QA }}
-        />
-      </div>
+      <article className={styles.week}>
+        <header className={styles.header}>
+          <p className={styles.weekLabel}>
+            Week {String(current.week).padStart(2, "0")}
+          </p>
+          <h1 className={styles.title}>{current.constraint}</h1>
+        </header>
 
-      <nav className={styles.pager}>
-        {prev ? (
-          <Link href={`/introduction/${prev.week}`} className={styles.pagerLink}>
-            ← Week {String(prev.week).padStart(2, "0")} · {prev.constraint}
-          </Link>
-        ) : (
-          <span />
-        )}
-        {next ? (
-          <Link href={`/introduction/${next.week}`} className={styles.pagerLink}>
-            Week {String(next.week).padStart(2, "0")} · {next.constraint} →
-          </Link>
-        ) : (
-          <span />
-        )}
-      </nav>
-    </article>
+        <div className={styles.body}>
+          <MDXRemote
+            source={current.content}
+            components={{ FigureWithCaption, LifeGraph, QA }}
+          />
+        </div>
+      </article>
+    </main>
   );
 }
