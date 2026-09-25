@@ -14,17 +14,20 @@ const TEXT = "안녕하세요";
  */
 export function Greeting() {
   return (
-    <h1 className={styles.greeting} aria-label={TEXT}>
-      {Array.from(TEXT).map((ch, i) => (
-        <span
-          key={i}
-          className={styles.ch}
-          style={{ animationDelay: `${0.3 + i * 0.24}s` }}
-          aria-hidden="true"
-        >
-          {ch}
-        </span>
-      ))}
-    </h1>
+    <div className={styles.greetingBlock}>
+      <h1 className={styles.greeting} aria-label={TEXT}>
+        {Array.from(TEXT).map((ch, i) => (
+          <span
+            key={i}
+            className={styles.ch}
+            style={{ animationDelay: `${0.3 + i * 0.24}s` }}
+            aria-hidden="true"
+          >
+            {ch}
+          </span>
+        ))}
+      </h1>
+      <p className={styles.continuation}>저는</p>
+    </div>
   );
 }

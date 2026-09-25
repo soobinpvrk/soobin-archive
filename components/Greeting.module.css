@@ -1,8 +1,15 @@
+.greetingBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
 .greeting {
   /* minguhong.fyi의 한글 타이포그래피: Pretendard ExtraBold, 자간 0, 행간 1.625. */
   font-family: var(--font-body);
   font-weight: 800;
-  font-size: clamp(2.6rem, 11vw, 7rem);
+  font-size: clamp(3.2rem, 14vw, 9rem);
   line-height: 1.625;
   letter-spacing: normal;
   display: flex;
@@ -15,15 +22,70 @@
   animation: brighten 0.9s ease forwards;
 }
 
+.continuation {
+  display: flex;
+  align-items: center;
+  margin: -0.35em 0 0;
+  font-family: var(--font-body);
+  font-size: clamp(1.7rem, 3.2vw, 3rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: #ffffff;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: revealContinuation 0.55s cubic-bezier(0.22, 1, 0.36, 1) 2.35s
+    forwards;
+}
+
+.continuation::after {
+  content: "";
+  width: 0.08em;
+  height: 0.95em;
+  margin-left: 0.12em;
+  background: currentColor;
+  opacity: 0;
+  animation: blinkCursor 0.85s step-end 2.7s infinite;
+}
+
 @keyframes brighten {
   to {
     color: #ffffff;
   }
 }
 
+@keyframes revealContinuation {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes blinkCursor {
+  0%,
+  49% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ch {
     color: #ffffff;
+    animation: none;
+  }
+
+  .continuation {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .continuation::after {
+    opacity: 1;
     animation: none;
   }
 }

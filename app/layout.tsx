@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { zalandoSansExpanded, pretendard } from "./fonts";
-import { ChipNav } from "@/components/ChipNav";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -16,7 +15,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${zalandoSansExpanded.variable} ${pretendard.variable}`}
     >
       <body>
-        <ChipNav />
         {children}
       </body>
     </html>

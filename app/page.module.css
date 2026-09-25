@@ -1,6 +1,7 @@
 /* 첫 화면. 인사말만 놓이고, 목록은 스크롤해야 나온다. */
 .hero {
-  min-height: calc(100dvh - 130px);
+  min-height: 100svh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,7 +20,7 @@
 
 .indexTitle {
   font-family: var(--font-display);
-  font-size: clamp(2.8rem, 5.2vw, 5rem);
+  font-size: clamp(2.4rem, 4.2vw, 4rem);
   font-weight: 800;
   line-height: 1;
   letter-spacing: -0.04em;
@@ -37,7 +38,7 @@
 
 .description {
   color: var(--color-text-dim);
-  max-width: 52ch;
+  white-space: nowrap;
 }
 
 /* 세 단계를 가로로 나란히 */
@@ -103,6 +104,10 @@ a.itemLink:hover {
 }
 
 @media (max-width: 860px) {
+  .description {
+    white-space: normal;
+  }
+
   .stages {
     grid-template-columns: 1fr;
     gap: 44px;
