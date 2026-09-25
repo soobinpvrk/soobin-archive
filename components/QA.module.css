@@ -6,6 +6,7 @@
 
 .number {
   font-family: var(--font-display);
+  font-weight: 800;
   font-size: 0.78rem;
   letter-spacing: 0.08em;
   color: #6e6e6e;
@@ -14,7 +15,7 @@
 
 .question {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 1.15rem;
   line-height: 1.4;
   color: var(--color-text);
@@ -41,7 +42,6 @@
 
 .answer {
   margin-top: 1em;
-  padding-left: 1.2em;
   color: #c8c8c8;
 }
 

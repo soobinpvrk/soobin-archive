@@ -36,9 +36,6 @@ export default async function WeekPage({
           Week {String(current.week).padStart(2, "0")}
         </p>
         <h1 className={styles.title}>{current.constraint}</h1>
-        <p className={styles.meta}>
-          {current.title} · {current.date}
-        </p>
       </header>
 
       <div className={styles.body}>

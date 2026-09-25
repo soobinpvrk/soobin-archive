@@ -1,11 +1,10 @@
 import styles from "./page.module.css";
-import { SunHead } from "@/components/SunHead";
+import { Greeting } from "@/components/Greeting";
 
 export default function HomePage() {
   return (
     <main className={styles.main}>
-      <SunHead />
-      <h1 className={styles.title}>soobinpark</h1>
+      <Greeting />
     </main>
   );
 }

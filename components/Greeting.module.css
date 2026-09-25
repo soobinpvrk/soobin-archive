@@ -1,0 +1,29 @@
+.greeting {
+  /* Pretendard Black. 한글 굵기는 이 900이 전부다. */
+  font-family: var(--font-body);
+  font-weight: 900;
+  font-size: clamp(2.6rem, 11vw, 7rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.ch {
+  color: #4a4a4a;
+  animation: brighten 0.9s ease forwards;
+}
+
+@keyframes brighten {
+  to {
+    color: #ffffff;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ch {
+    color: #ffffff;
+    animation: none;
+  }
+}
