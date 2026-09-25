@@ -6,6 +6,59 @@
   padding: 48px clamp(24px, 3vw, 48px) 96px;
 }
 
+.homeButton {
+  position: fixed;
+  top: 24px;
+  right: clamp(24px, 3vw, 48px);
+  z-index: 20;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.homeButtonLabel {
+  padding: 15px 20px;
+  border: 1px solid #292929;
+  border-radius: 12px;
+  background: #111111;
+  font-family: var(--font-display);
+  font-size: 1em;
+  font-weight: 750;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition:
+    border-color 180ms ease,
+    color 180ms ease;
+}
+
+.homeButtonImage {
+  width: 72px;
+  height: 72px;
+  flex: 0 0 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: transform 180ms ease;
+}
+
+a.homeButton:hover,
+a.homeButton:focus-visible {
+  background: none;
+  color: var(--color-text);
+}
+
+a.homeButton:hover .homeButtonLabel,
+a.homeButton:focus-visible .homeButtonLabel {
+  border-color: #6a6a6a;
+  color: #ffffff;
+}
+
+a.homeButton:hover .homeButtonImage,
+a.homeButton:focus-visible .homeButtonImage {
+  transform: scale(1.04);
+}
+
 .toc {
   position: sticky;
   top: 48px;
@@ -92,7 +145,25 @@ a.tocItem:focus-visible {
 @media (max-width: 720px) {
   .layout {
     display: block;
-    padding-top: 32px;
+    padding-top: 104px;
+  }
+
+  .homeButton {
+    top: 18px;
+    right: 20px;
+    gap: 9px;
+  }
+
+  .homeButtonLabel {
+    padding: 11px 14px;
+    border-radius: 10px;
+    font-size: 0.86em;
+  }
+
+  .homeButtonImage {
+    width: 54px;
+    height: 54px;
+    flex-basis: 54px;
   }
 
   .toc {
