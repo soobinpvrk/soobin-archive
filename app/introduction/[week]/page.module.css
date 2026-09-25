@@ -38,12 +38,13 @@
 }
 
 a.tocItem:hover,
-a.tocItem:focus-visible,
-.current {
+a.tocItem:focus-visible {
+  background: none;
   color: var(--color-text);
 }
 
 .current {
+  color: var(--color-text);
   font-weight: 800;
 }
 
