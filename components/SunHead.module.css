@@ -6,7 +6,7 @@
   height: var(--sun);
   display: grid;
   place-items: center;
-  margin-bottom: clamp(64px, 9vw, 104px);
+  margin-bottom: clamp(52px, 7vw, 84px);
 
   opacity: 0;
   animation: appear 1.4s ease 0.2s forwards;
@@ -18,66 +18,41 @@
   }
 }
 
-/* 긴 광선 */
+/* 가늘고 긴 광선. 한 바퀴에 90초 */
 .rays {
   position: absolute;
-  inset: -140%;
+  inset: -85%;
   background: repeating-conic-gradient(
     from 0deg,
-    transparent 0deg,
-    rgba(255, 250, 228, 0.92) 2.6deg,
-    transparent 6deg,
-    transparent 11.25deg
+    rgba(255, 255, 255, 0.62) 0deg 0.8deg,
+    transparent 0.8deg 5.4deg
   );
   -webkit-mask: radial-gradient(
     closest-side,
-    transparent 16%,
-    #000 30%,
-    #000 44%,
-    transparent 84%
+    transparent 28%,
+    #000 42%,
+    #000 58%,
+    transparent 88%
   );
   mask: radial-gradient(
     closest-side,
-    transparent 16%,
-    #000 30%,
-    #000 44%,
-    transparent 84%
+    transparent 28%,
+    #000 42%,
+    #000 58%,
+    transparent 88%
   );
-  animation: spin 120s linear infinite;
+  animation: spin 90s linear infinite;
 }
 
-/* 짧은 광선. 각도를 어긋나게 겹쳐 길이를 들쭉날쭉하게 만든다 */
-.rays2 {
+/* 얼굴 둘레에서 번지는 빛 */
+.glow {
   position: absolute;
-  inset: -92%;
-  background: repeating-conic-gradient(
-    from 5.6deg,
-    transparent 0deg,
-    rgba(255, 242, 196, 0.8) 2.2deg,
-    transparent 5.2deg,
-    transparent 11.25deg
-  );
-  -webkit-mask: radial-gradient(
-    closest-side,
-    transparent 22%,
-    #000 38%,
-    transparent 86%
-  );
-  mask: radial-gradient(closest-side, transparent 22%, #000 38%, transparent 86%);
-  animation: spin 120s linear infinite;
-}
-
-/* 얼굴이 앉는 밝은 원반 */
-.core {
-  position: absolute;
-  inset: -48%;
+  inset: -42%;
   background: radial-gradient(
     closest-side,
-    #fffdf4 0%,
-    #ffefc0 38%,
-    rgba(255, 214, 120, 0.85) 56%,
-    rgba(255, 186, 80, 0.35) 72%,
-    transparent 88%
+    rgba(255, 255, 255, 0.62),
+    rgba(255, 255, 255, 0.2) 52%,
+    transparent 76%
   );
   animation: breathe 7s ease-in-out infinite;
 }
@@ -97,12 +72,12 @@
 @keyframes breathe {
   0%,
   100% {
-    opacity: 0.92;
+    opacity: 0.85;
     transform: scale(1);
   }
   50% {
     opacity: 1;
-    transform: scale(1.04);
+    transform: scale(1.06);
   }
 }
 
@@ -112,8 +87,7 @@
     animation: none;
   }
   .rays,
-  .rays2,
-  .core {
+  .glow {
     animation: none;
   }
 }
