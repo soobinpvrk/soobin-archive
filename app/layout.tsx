@@ -4,7 +4,7 @@ import { ChipNav } from "@/components/ChipNav";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "자신만의 공간",
+  title: "수빈이네",
   description:
     "Phi Institute of Design, Self-Introduction 수업 — 10주간 매주 다른 제약으로 자기소개를 수행한 기록.",
 };
