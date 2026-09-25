@@ -1,8 +1,111 @@
-.main {
-  flex: 1;
+/* 첫 화면. 인사말만 놓이고, 목록은 스크롤해야 나온다. */
+.hero {
+  min-height: calc(100dvh - 130px);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 0 var(--gutter);
+}
+
+.index {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 var(--gutter) 120px;
+  scroll-margin-top: 80px;
+}
+
+.intro {
+  margin-bottom: 72px;
+}
+
+.kicker {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.85em;
+  letter-spacing: 0.02em;
+  color: var(--color-text-dim);
+  margin-bottom: 1em;
+}
+
+.indexTitle {
+  font-size: 1.8em;
+  margin-bottom: 0.6em;
+}
+
+.description {
+  color: var(--color-text-dim);
+  max-width: 46ch;
+}
+
+/* 세 단계를 가로로 나란히 */
+.stages {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 56px 40px;
+  align-items: start;
+}
+
+.stageTitle {
+  font-size: 1em;
+  font-weight: 600;
+  color: var(--color-text-dim);
+  margin-bottom: 0;
+  padding-bottom: 0.9em;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.item {
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* 호버는 글자 색만 바꾼다. globals.css의 전역 a:hover가 배경을 반전시키므로
+   여기서 명시적으로 되돌린다. */
+.itemLink {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9em;
+  padding: 0.9em 0;
+  color: #c8c8c8;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+a.itemLink:hover {
+  background: none;
+  color: #ffffff;
+}
+
+.upcoming {
+  color: #5a5a5a;
+  cursor: default;
+}
+
+.weekNumber {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: inherit;
+  flex-shrink: 0;
+}
+
+.constraint {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: inherit;
+}
+
+@media (max-width: 860px) {
+  .stages {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+
+  .index {
+    max-width: var(--content-width);
+  }
 }
