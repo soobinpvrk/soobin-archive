@@ -1,11 +1,11 @@
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getAllWeeks } from "@/lib/weeks";
 import { FigureWithCaption } from "@/components/FigureWithCaption";
 import { LifeGraph } from "@/components/LifeGraph";
 import { QA } from "@/components/QA";
+import { RotatingHomeButton } from "@/components/RotatingHomeButton";
 import styles from "./page.module.css";
 
 export function generateStaticParams() {
@@ -26,21 +26,7 @@ export default async function WeekPage({
 
   return (
     <main className={styles.layout}>
-      <Link
-        href="/"
-        className={styles.homeButton}
-        aria-label="메인 화면으로 이동"
-      >
-        <span className={styles.homeButtonLabel}>안녕하세요?</span>
-        <Image
-          src="/baby-home.jpg"
-          alt=""
-          width={72}
-          height={72}
-          priority
-          className={styles.homeButtonImage}
-        />
-      </Link>
+      <RotatingHomeButton />
 
       <aside className={styles.toc}>
         <nav aria-label="자기소개 주차 목차">
