@@ -27,7 +27,7 @@
   align-items: center;
   margin: -0.35em 0 0;
   font-family: var(--font-body);
-  font-size: clamp(1.7rem, 3.2vw, 3rem);
+  font-size: clamp(2rem, 4vw, 4rem);
   font-weight: 700;
   line-height: 1.2;
   color: #ffffff;
@@ -39,7 +39,7 @@
 
 .continuation::after {
   content: "";
-  width: 0.08em;
+  width: 0.045em;
   height: 0.95em;
   margin-left: 0.12em;
   background: currentColor;
