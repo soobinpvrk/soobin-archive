@@ -1,13 +1,10 @@
 .greeting {
-  /* Pretendard Black. 한글 굵기는 이 900이 전부다. */
+  /* minguhong.fyi의 한글 타이포그래피: Pretendard ExtraBold, 자간 0, 행간 1.625. */
   font-family: var(--font-body);
-  font-weight: 900;
+  font-weight: 800;
   font-size: clamp(2.6rem, 11vw, 7rem);
-  line-height: 1.1;
-  letter-spacing: 0.06em;
-  /* 자간을 벌리면 마지막 글자 뒤에도 여백이 붙어 중앙이 살짝 틀어진다.
-     그만큼 왼쪽으로 당겨 균형을 맞춘다. */
-  margin-left: 0.06em;
+  line-height: 1.625;
+  letter-spacing: normal;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
