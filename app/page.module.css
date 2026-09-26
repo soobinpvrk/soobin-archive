@@ -80,6 +80,10 @@
   border-bottom: 1px solid var(--color-border);
 }
 
+.item:last-child {
+  border-bottom: 0;
+}
+
 /* 호버는 글자 색만 바꾼다. globals.css의 전역 a:hover가 배경을 반전시키므로
    여기서 명시적으로 되돌린다. */
 .itemLink {
