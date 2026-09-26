@@ -46,8 +46,8 @@ export function RotatingHomeButton() {
             key={src}
             src={src}
             alt=""
-            width={72}
-            height={72}
+            width={64}
+            height={64}
             priority={index === 0}
             className={`${styles.photo} ${index === activeIndex ? styles.photoActive : ""}`}
           />

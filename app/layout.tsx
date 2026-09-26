@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { CatPawTrail } from "@/components/CatPawTrail";
 import { zalandoSansExpanded, pretendard } from "./fonts";
 import "./globals.css";
 
@@ -17,7 +16,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body>
         {children}
-        <CatPawTrail />
       </body>
     </html>
   );
