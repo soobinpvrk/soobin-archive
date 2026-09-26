@@ -1,8 +1,8 @@
 .block {
   width: min(100%, 740px);
-  margin-top: clamp(88px, 9vw, 128px);
-  margin-left: auto;
-  padding-bottom: clamp(56px, 6vw, 80px);
+  margin-top: clamp(56px, 6vw, 72px);
+  margin-left: 0;
+  padding-bottom: clamp(56px, 6vw, 72px);
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -51,7 +51,7 @@
   max-width: 36em;
   font-size: clamp(1.12rem, 1.45vw, 1.3rem);
   font-weight: 450;
-  line-height: 1.85;
+  line-height: 1.72;
   letter-spacing: -0.012em;
   color: #b8b8b8;
   word-break: keep-all;
@@ -72,8 +72,8 @@
 
 @media (max-width: 720px) {
   .block {
-    margin-top: 64px;
-    padding-bottom: 42px;
+    margin-top: 48px;
+    padding-bottom: 48px;
   }
 
   .question {
@@ -86,6 +86,6 @@
     max-width: none;
     margin-top: 20px;
     font-size: 1rem;
-    line-height: 1.8;
+    line-height: 1.7;
   }
 }
