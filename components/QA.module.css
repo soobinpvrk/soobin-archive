@@ -7,15 +7,21 @@
 }
 
 .number {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  color: #6e6e6e;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+  margin: 0 0 0.9em;
 }
 
 .question {
   font-family: var(--font-display);
-  max-width: 18em;
+  max-width: 25em;
   font-weight: 800;
-  font-size: clamp(2.1rem, 3vw, 2.7rem);
+  font-size: clamp(1.45rem, 1.8vw, 1.75rem);
   line-height: 1.42;
   letter-spacing: -0.025em;
   color: #f2f2f2;
@@ -72,7 +78,7 @@
 
   .question {
     max-width: none;
-    font-size: clamp(1.55rem, 7vw, 2rem);
+    font-size: clamp(1.4rem, 5.6vw, 1.7rem);
     line-height: 1.45;
   }
 

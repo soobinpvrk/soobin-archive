@@ -32,9 +32,8 @@ export function QA({ number, question, word, strike, children }: QAProps) {
 
   return (
     <div className={styles.block}>
-      <p className={styles.question}>
-        <span className={styles.number}>{displayNumber}.</span> {question}
-      </p>
+      <p className={styles.number}>{displayNumber}.</p>
+      <p className={styles.question}>{question}</p>
       {hasWord ? (
         <p className={`${styles.word} ${strike ? styles.wordStrike : ""}`}>
           {word}
