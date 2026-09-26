@@ -20,7 +20,7 @@
 .question {
   font-family: var(--font-display);
   max-width: 25em;
-  font-weight: 800;
+  font-weight: 600;
   font-size: 1.5em;
   line-height: 1.42;
   letter-spacing: -0.025em;
@@ -50,7 +50,7 @@
   margin-top: clamp(16px, 2vw, 22px);
   max-width: 36em;
   font-size: 1em;
-  font-weight: 450;
+  font-weight: 380;
   line-height: 1.72;
   letter-spacing: -0.012em;
   color: #b8b8b8;
