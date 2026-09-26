@@ -56,7 +56,6 @@ a.tocItem:focus-visible {
   font-variant-numeric: tabular-nums;
 }
 
-/* 질문 한 줄이 접히지 않으려면 본문 기본 폭(680px)으로는 모자라다. */
 .week {
   grid-column: 2;
   min-width: 0;
@@ -74,7 +73,8 @@ a.tocItem:focus-visible {
 }
 
 .title {
-  font-size: 1.8em;
+  font-size: clamp(2rem, 3vw, 2.65rem);
+  letter-spacing: -0.025em;
   margin-bottom: 0.5em;
 }
 
