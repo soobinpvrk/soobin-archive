@@ -44,10 +44,6 @@
   opacity: 0;
 }
 
-.cursorActive {
-  opacity: 1;
-}
-
 .cursorBlinking {
   opacity: 1;
   animation: blinkCursor 1.5s step-end infinite;

@@ -46,21 +46,28 @@
   white-space: nowrap;
 }
 
-/* 세 단계를 가로로 나란히 */
+/* 카테고리는 왼쪽, 주차별 콘텐츠는 오른쪽에 놓는다. */
 .stages {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(36px, 4.2vw, 64px);
+}
+
+.stage {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 56px 40px;
+  grid-template-columns: minmax(180px, 0.55fr) minmax(0, 1fr);
+  column-gap: clamp(32px, 5vw, 80px);
   align-items: start;
+  border-top: 1px solid var(--color-border);
 }
 
 .stageTitle {
   font-size: 1em;
   font-weight: 600;
+  line-height: 1.35;
   color: var(--color-text-dim);
-  margin-bottom: 0;
-  padding-bottom: 0.9em;
-  border-bottom: 1px solid var(--color-border);
+  margin: 0;
+  padding: 0.68em 0;
 }
 
 .list {
@@ -76,10 +83,12 @@
 /* 호버는 글자 색만 바꾼다. globals.css의 전역 a:hover가 배경을 반전시키므로
    여기서 명시적으로 되돌린다. */
 .itemLink {
-  display: flex;
+  display: grid;
+  grid-template-columns: 2.3em minmax(0, 1fr);
   align-items: baseline;
-  gap: 0.9em;
-  padding: 0.9em 0;
+  gap: 0.55em;
+  padding: 0.68em 0;
+  line-height: 1.35;
   color: #c8c8c8;
   text-decoration: none;
   transition: color 0.15s ease;
@@ -114,8 +123,16 @@ a.itemLink:hover {
   }
 
   .stages {
+    gap: 36px;
+  }
+
+  .stage {
     grid-template-columns: 1fr;
-    gap: 44px;
+    column-gap: 0;
+  }
+
+  .stageTitle {
+    padding-bottom: 0.48em;
   }
 
   .intro {

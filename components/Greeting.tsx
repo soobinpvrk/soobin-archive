@@ -35,11 +35,9 @@ export function Greeting() {
   }, []);
 
   const cursorClass =
-    typedCount === 0
+    typedCount < CONTINUATION.length
       ? styles.cursor
-      : typedCount < CONTINUATION.length
-        ? `${styles.cursor} ${styles.cursorActive}`
-        : `${styles.cursor} ${styles.cursorBlinking}`;
+      : `${styles.cursor} ${styles.cursorBlinking}`;
 
   return (
     <div className={styles.greetingBlock}>
