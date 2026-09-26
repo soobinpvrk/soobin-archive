@@ -1,6 +1,10 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import styles from "./Greeting.module.css";
 
 const TEXT = "안녕하세요";
+const CONTINUATION = "저는";
 
 /**
  * 메인의 인사. 회색으로 놓였다가 한 글자씩 흰색으로 밝아진다.
@@ -13,6 +17,30 @@ const TEXT = "안녕하세요";
  * Greeting.module.css의 .ch에서 animation을 infinite로 바꾸면 된다.
  */
 export function Greeting() {
+  const [typedCount, setTypedCount] = useState(0);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setTypedCount(CONTINUATION.length);
+      return;
+    }
+
+    const firstCharacter = window.setTimeout(() => setTypedCount(1), 2450);
+    const secondCharacter = window.setTimeout(() => setTypedCount(2), 3500);
+
+    return () => {
+      window.clearTimeout(firstCharacter);
+      window.clearTimeout(secondCharacter);
+    };
+  }, []);
+
+  const cursorClass =
+    typedCount === 0
+      ? styles.cursor
+      : typedCount < CONTINUATION.length
+        ? `${styles.cursor} ${styles.cursorActive}`
+        : `${styles.cursor} ${styles.cursorBlinking}`;
+
   return (
     <div className={styles.greetingBlock}>
       <h1 className={styles.greeting} aria-label={TEXT}>
@@ -27,7 +55,10 @@ export function Greeting() {
           </span>
         ))}
       </h1>
-      <p className={styles.continuation}>저는</p>
+      <p className={styles.continuation} aria-label={CONTINUATION}>
+        <span aria-hidden="true">{CONTINUATION.slice(0, typedCount)}</span>
+        <span className={cursorClass} aria-hidden="true" />
+      </p>
     </div>
   );
 }
