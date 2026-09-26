@@ -83,6 +83,11 @@ a.tocItem:focus-visible {
   margin-bottom: 0;
 }
 
+/* 소설도 인터뷰의 첫 질문과 같은 위치에서 시작한다. */
+.storyBody {
+  margin-top: clamp(56px, 6vw, 72px);
+}
+
 @media (max-width: 1050px) {
   .layout {
     grid-template-columns: minmax(155px, 200px) minmax(0, 820px);
@@ -103,6 +108,10 @@ a.tocItem:focus-visible {
 
   .week {
     padding-left: 0;
+  }
+
+  .storyBody {
+    margin-top: 48px;
   }
 
   .tocList {

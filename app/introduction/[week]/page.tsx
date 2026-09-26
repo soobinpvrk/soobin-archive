@@ -77,7 +77,11 @@ export default async function WeekPage({
           <h1 className={styles.title}>{current.constraint}</h1>
         </header>
 
-        <div className={styles.body}>
+        <div
+          className={`${styles.body} ${
+            current.week === 2 ? styles.storyBody : ""
+          }`}
+        >
           <MDXRemote
             source={current.content}
             components={{ FigureWithCaption, LifeGraph, QA }}
