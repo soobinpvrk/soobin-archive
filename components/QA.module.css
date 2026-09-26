@@ -7,12 +7,8 @@
 }
 
 .number {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 1rem;
-  letter-spacing: 0.06em;
-  color: #6e6e6e;
-  margin: 0 0 1.05em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .question {
@@ -55,6 +51,14 @@
   word-break: keep-all;
 }
 
+.answer > p:first-child:not(.empty)::before {
+  content: "“";
+}
+
+.answer > p:last-child:not(.empty)::after {
+  content: "”";
+}
+
 .empty {
   margin: 0;
   color: #4a4a4a;
@@ -64,10 +68,6 @@
   .block {
     margin-top: 64px;
     padding-bottom: 42px;
-  }
-
-  .number {
-    margin-bottom: 0.8em;
   }
 
   .question {

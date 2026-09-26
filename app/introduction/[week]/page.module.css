@@ -59,6 +59,7 @@ a.tocItem:focus-visible {
 .week {
   grid-column: 2;
   min-width: 0;
+  padding-left: clamp(20px, 2vw, 32px);
 }
 
 .header {
@@ -98,6 +99,10 @@ a.tocItem:focus-visible {
   .toc {
     position: static;
     margin-bottom: 3em;
+  }
+
+  .week {
+    padding-left: 0;
   }
 
   .tocList {

@@ -28,11 +28,13 @@ function getTextContent(node: ReactNode): string {
 export function QA({ number, question, word, strike, children }: QAProps) {
   const hasAnswer = getTextContent(children).trim().length > 0;
   const hasWord = Boolean(word && word.trim().length > 0);
+  const displayNumber = /^\d+$/.test(number) ? String(Number(number)) : number;
 
   return (
     <div className={styles.block}>
-      <p className={styles.number}>{number}</p>
-      <p className={styles.question}>{question}</p>
+      <p className={styles.question}>
+        <span className={styles.number}>{displayNumber}.</span> {question}
+      </p>
       {hasWord ? (
         <p className={`${styles.word} ${strike ? styles.wordStrike : ""}`}>
           {word}

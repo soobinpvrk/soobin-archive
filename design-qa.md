@@ -1,55 +1,57 @@
-# Design QA — Week 01 Interview Typography
+# Design QA — Interview Numbering, Quotes, and Layout Gap
 
 - Source visual truth:
-  - `/private/var/folders/f5/1g5v4tg55zz2lq_v48q99ngr0000gn/T/TemporaryItems/NSIRD_screencaptureui_OV7fMh/스크린샷 2026-09-26 오후 2.47.05.png`
-  - `/private/var/folders/f5/1g5v4tg55zz2lq_v48q99ngr0000gn/T/TemporaryItems/NSIRD_screencaptureui_7BdhNC/스크린샷 2026-09-26 오후 2.47.41.png`
+  - `/private/var/folders/f5/1g5v4tg55zz2lq_v48q99ngr0000gn/T/TemporaryItems/NSIRD_screencaptureui_pwuU5O/스크린샷 2026-09-26 오후 2.55.48.png`
+  - `/private/var/folders/f5/1g5v4tg55zz2lq_v48q99ngr0000gn/T/TemporaryItems/NSIRD_screencaptureui_pAuqz4/스크린샷 2026-09-26 오후 2.55.55.png`
 - Implementation screenshots:
-  - `/private/tmp/soobin-archive-qa/implementation-desktop-1280x720.png`
-  - `/private/tmp/soobin-archive-qa/implementation-mobile-390x844.png`
-- Focused comparison: `/private/tmp/soobin-archive-qa/typography-comparison.png`
+  - `/private/tmp/soobin-archive-qa-2/implementation-desktop-1280x720.png`
+  - `/private/tmp/soobin-archive-qa-2/implementation-mobile-390x844.png`
+- Focused comparison: `/private/tmp/soobin-archive-qa-2/typography-comparison.png`
 - Viewports: desktop `1280 × 720` CSS px; mobile `390 × 844` CSS px.
-- Pixel dimensions and density: reference screenshots `3024 × 1964` px with browser chrome; implementation captures match their CSS viewport dimensions at density 1. The focused comparison normalizes both typography regions into equal `640 × 560` panels.
-- State: `/introduction/1`, dark theme, top-of-page state. Mobile and desktop responsive states checked.
+- Pixel dimensions and density: implementation screenshots match their CSS viewport dimensions at density 1. The two source images are cropped typography references rather than full-page layouts, so the focused comparison normalizes them into separate reference panels alongside a cropped implementation panel.
+- State: `/introduction/1`, dark theme, top-of-page state.
 
 ## Full-view comparison evidence
 
-The implementation preserves the site's existing information architecture (week table of contents, article heading, home control) while adopting the reference's editorial hierarchy: small muted index, large heavy Korean display text, tighter tracking, a narrower reading measure, and generous vertical rhythm. No horizontal overflow was present at `390px`.
+The desktop implementation now renders each question as a single editorial statement beginning with `1.`, `2.`, and so on. The number shares the question's type size, weight, line height, and color instead of appearing as a detached muted label. The article's visible content begins at `295.2px` while the table of contents ends at `218.4px`, leaving a `76.8px` focus gap. On mobile the additional article padding is removed, preserving the full `342px` reading width.
 
 ## Focused region comparison evidence
 
-The combined typography comparison shows that the question weight, scale, compact tracking, and line breaks now closely match the visual density of the reference quote column. The answer remains deliberately smaller and muted so question and answer retain distinct semantic roles; its size, weight, and measure were increased enough to feel part of the same editorial system.
+The combined comparison shows the implementation adopting the reference number-plus-statement construction and the paired opening/closing curly quotation marks. The answer remains intentionally smaller and gray to preserve question/answer hierarchy while using the exact quoted treatment requested.
 
 ## Required fidelity surfaces
 
-- Fonts and typography: existing Pretendard/Helvetica stack retained; questions use weight 800, responsive `2.1rem–2.7rem` sizing, `1.42` line height, and `-0.025em` tracking. Answers use responsive `1.12rem–1.3rem`, weight 450, and `1.85` line height.
-- Spacing and layout rhythm: question blocks are right-aligned within a `740px` measure with responsive top and bottom spacing. Mobile spacing and type scale are reduced independently.
-- Colors and visual tokens: black background, off-white display text, muted gray answer text, and existing border token remain consistent with both the reference mood and current product.
-- Image quality and asset fidelity: typography-only change; existing randomized circular home image remains sharp and correctly masked.
-- Copy and content: all interview questions and answers are unchanged.
+- Fonts and typography: number and question are one weight-800 display line at `38.4px` on the verified desktop viewport; mobile uses the existing responsive display scale. Quotation marks inherit the answer type without introducing a competing size.
+- Spacing and layout rhythm: desktop article content receives responsive `20–32px` left padding; mobile resets it to zero. Existing vertical rhythm and dividers are preserved.
+- Colors and visual tokens: existing black, off-white, muted gray, and border tokens are unchanged.
+- Image quality and asset fidelity: no image assets were introduced or modified; the existing home avatar remains a real circular image.
+- Copy and content: question numbering changes from `01` to `1.` presentation only. Interview text is unchanged, with curly quotes added visually around non-empty answers.
 
 ## Findings
 
 - No actionable P0, P1, or P2 differences remain.
-- P3: the reference uses one uniformly bold quotation block, while the implementation uses a large question plus a smaller answer. This is intentional to preserve Q&A comprehension and scanning.
+- P3: the answer is lighter and smaller than the reference quote. This is intentional because it is subordinate answer copy, not the page's primary statement.
 
 ## Comparison history
 
-1. Initial implementation comparison found a P2 hierarchy mismatch: the question matched the reference direction, but the answer retained the previous small, light density.
-2. Fix applied: increased answer size and weight, narrowed its measure, and increased question scale slightly.
-3. Post-fix evidence: `/private/tmp/soobin-archive-qa/typography-comparison.png`; desktop and mobile captures show the corrected hierarchy with no overflow or broken wrapping.
+1. Earlier implementation had a P2 hierarchy mismatch: small detached `01`, `02` labels did not match the reference's integrated numbered statement.
+2. Earlier implementation had a P2 content-treatment mismatch: answers had no quotation marks and the article sat visually close to the table of contents.
+3. Fixes applied: integrated normalized numbers into question lines, added curly opening/closing quotes to answered paragraphs, and added responsive desktop-only article inset.
+4. Post-fix evidence: `/private/tmp/soobin-archive-qa-2/typography-comparison.png`, plus the desktop and mobile implementation captures listed above.
 
 ## Interaction and console checks
 
-- The circular `안녕하세요?` control navigated successfully from `/introduction/1` to `/`.
-- No runtime console errors were found. A development-only Fast Refresh full-reload warning occurred after CSS editing and is not present in the production build.
+- The `안녕하세요?` home control navigated successfully from `/introduction/1` to `/` and browser back returned to the interview.
+- No console errors were found.
+- Mobile horizontal overflow check passed: `scrollWidth` and `clientWidth` were both `390px`.
 
 ## Implementation checklist
 
-- [x] Large editorial question typography
-- [x] Readable, narrower answer measure
-- [x] Responsive mobile scale
-- [x] No horizontal overflow at 390px
-- [x] Home navigation works
+- [x] Integrated `1.`–`5.` numbering
+- [x] Paired curly quotes on non-empty answers
+- [x] Increased desktop TOC-to-article focus gap
+- [x] Preserved mobile reading width
+- [x] Verified home navigation and console
 - [x] Production build passes
 
 final result: passed
