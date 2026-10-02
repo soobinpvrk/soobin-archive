@@ -1,22 +1,29 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
-import { lifeGraphData } from "@/content/life-graph";
+import { useEffect, useRef, useState } from "react";
+import { lifeGraphData, type LifePoint } from "@/content/life-graph";
 import styles from "./LifeGraph.module.css";
 
+const YEAR_MIN = 1996;
+const YEAR_MAX = 2026;
+const SCORE_MAX = 10;
 const DESKTOP_PAD_X = 6;
 const DESKTOP_PAD_Y = 22;
-const GRID_VALUES = [100, 50, 0, -50, -100] as const;
+const GRID_SCORES = [10, 5, 0, -5, -10] as const;
 
-function xFromIndex(index: number, total: number) {
-  if (total <= 1) return 50;
-  return DESKTOP_PAD_X + (index / (total - 1)) * (100 - DESKTOP_PAD_X * 2);
+function xFromYear(year: number) {
+  const ratio = (year - YEAR_MIN) / (YEAR_MAX - YEAR_MIN);
+  return DESKTOP_PAD_X + ratio * (100 - DESKTOP_PAD_X * 2);
 }
 
-function yFromValue(value: number) {
+function yFromScore(score: number) {
   const halfHeight = 50 - DESKTOP_PAD_Y;
-  return 50 - (value / 100) * halfHeight;
+  return 50 - (score / SCORE_MAX) * halfHeight;
+}
+
+function formatScore(score: number) {
+  return score > 0 ? `+${score}` : `${score}`;
 }
 
 function moveByArrowKey(
@@ -36,18 +43,50 @@ function moveByArrowKey(
 }
 
 export function LifeGraph() {
-  const data = lifeGraphData;
-  const [selectedIndex, setSelectedIndex] = useState(data.length - 1);
-  const desktopRefs = useRef<Array<HTMLButtonElement | null>>([]);
-  const mobileRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const data = [...lifeGraphData].sort((a, b) => a.year - b.year);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const desktopDotRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const mobileDotRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const modalRef = useRef<HTMLDivElement | null>(null);
+  const triggerRef = useRef<HTMLElement | null>(null);
 
-  const selected = data[selectedIndex];
+  const openPoint: LifePoint | null = openIndex === null ? null : data[openIndex];
+
+  function openModal(index: number, trigger: HTMLElement) {
+    triggerRef.current = trigger;
+    setOpenIndex(index);
+  }
+
+  function closeModal() {
+    setOpenIndex(null);
+  }
+
+  useEffect(() => {
+    if (openIndex === null) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    modalRef.current?.focus();
+
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        closeModal();
+      }
+    }
+    document.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", onKeyDown);
+      triggerRef.current?.focus();
+    };
+  }, [openIndex]);
 
   const points = data.map((point, index) => ({
     point,
     index,
-    x: xFromIndex(index, data.length),
-    y: yFromValue(point.value),
+    x: xFromYear(point.year),
+    y: yFromScore(point.score),
   }));
 
   const polylinePoints = points.map((p) => `${p.x},${p.y}`).join(" ");
@@ -61,13 +100,13 @@ export function LifeGraph() {
           preserveAspectRatio="none"
           aria-hidden="true"
         >
-          {GRID_VALUES.map((v) => (
+          {GRID_SCORES.map((v) => (
             <line
               key={v}
               x1="0"
               x2="100"
-              y1={yFromValue(v)}
-              y2={yFromValue(v)}
+              y1={yFromScore(v)}
+              y2={yFromScore(v)}
               vectorEffect="non-scaling-stroke"
               className={v === 0 ? styles.gridZero : styles.gridLine}
             />
@@ -80,12 +119,12 @@ export function LifeGraph() {
         </svg>
 
         {points.map(({ point, index, x, y }) => {
-          const isSelected = index === selectedIndex;
+          const isOpen = index === openIndex;
           const above = index % 2 === 0;
 
           return (
             <div
-              key={point.id}
+              key={point.year}
               className={styles.pointWrap}
               style={{ left: `${x}%`, top: `${y}%` }}
             >
@@ -94,34 +133,33 @@ export function LifeGraph() {
                   above ? styles.textAbove : styles.textBelow
                 }`}
               >
-                <span className={styles.year}>{point.year}</span>
-                <span className={styles.labelText}>{point.label}</span>
+                <button
+                  type="button"
+                  className={styles.yearButton}
+                  aria-haspopup="dialog"
+                  aria-expanded={isOpen}
+                  aria-label={`${point.year}년 사건 상세 보기`}
+                  onClick={(e) => openModal(index, e.currentTarget)}
+                >
+                  {point.year}
+                </button>
+                <span className={styles.labelText}>{point.title}</span>
               </div>
               <button
                 type="button"
                 ref={(el) => {
-                  desktopRefs.current[index] = el;
+                  desktopDotRefs.current[index] = el;
                 }}
-                className={`${styles.dot} ${isSelected ? styles.dotSelected : ""}`}
-                aria-pressed={isSelected}
-                aria-label={`${point.year} · ${point.label}`}
-                onClick={() => setSelectedIndex(index)}
+                className={`${styles.dot} ${isOpen ? styles.dotActive : ""}`}
+                aria-haspopup="dialog"
+                aria-expanded={isOpen}
+                aria-label={`${point.year} · ${point.title}`}
+                onClick={(e) => openModal(index, e.currentTarget)}
                 onKeyDown={(e) => {
-                  const nextIndex = moveByArrowKey(
-                    e.key,
-                    index,
-                    data.length,
-                    desktopRefs.current,
-                  );
-                  if (nextIndex !== null) {
-                    e.preventDefault();
-                    setSelectedIndex(nextIndex);
-                  }
+                  moveByArrowKey(e.key, index, data.length, desktopDotRefs.current);
                 }}
               >
-                {isSelected ? (
-                  <span className={styles.ring} aria-hidden="true" />
-                ) : null}
+                {isOpen ? <span className={styles.ring} aria-hidden="true" /> : null}
               </button>
             </div>
           );
@@ -130,66 +168,77 @@ export function LifeGraph() {
 
       <ol className={styles.timelineMobile}>
         {points.map(({ point, index }) => {
-          const isSelected = index === selectedIndex;
+          const isOpen = index === openIndex;
 
           return (
-            <li key={point.id} className={styles.timelineRow}>
-              <span className={styles.timelineYear}>{point.year}</span>
+            <li key={point.year} className={styles.timelineRow}>
+              <button
+                type="button"
+                className={styles.timelineYearButton}
+                aria-haspopup="dialog"
+                aria-expanded={isOpen}
+                aria-label={`${point.year}년 사건 상세 보기`}
+                onClick={(e) => openModal(index, e.currentTarget)}
+              >
+                {point.year}
+              </button>
               <span className={styles.timelineTrack}>
                 <button
                   type="button"
                   ref={(el) => {
-                    mobileRefs.current[index] = el;
+                    mobileDotRefs.current[index] = el;
                   }}
-                  className={`${styles.dot} ${isSelected ? styles.dotSelected : ""}`}
-                  aria-pressed={isSelected}
-                  aria-label={`${point.year} · ${point.label}`}
-                  onClick={() => setSelectedIndex(index)}
+                  className={`${styles.dot} ${isOpen ? styles.dotActive : ""}`}
+                  aria-haspopup="dialog"
+                  aria-expanded={isOpen}
+                  aria-label={`${point.year} · ${point.title}`}
+                  onClick={(e) => openModal(index, e.currentTarget)}
                   onKeyDown={(e) => {
-                    const nextIndex = moveByArrowKey(
-                      e.key,
-                      index,
-                      data.length,
-                      mobileRefs.current,
-                    );
-                    if (nextIndex !== null) {
-                      e.preventDefault();
-                      setSelectedIndex(nextIndex);
-                    }
+                    moveByArrowKey(e.key, index, data.length, mobileDotRefs.current);
                   }}
                 >
-                  {isSelected ? (
-                    <span className={styles.ring} aria-hidden="true" />
-                  ) : null}
+                  {isOpen ? <span className={styles.ring} aria-hidden="true" /> : null}
                 </button>
               </span>
-              <span className={styles.timelineLabel}>{point.label}</span>
+              <span className={styles.timelineLabel}>{point.title}</span>
             </li>
           );
         })}
       </ol>
 
-      <div className={styles.detail}>
-        <div className={styles.photoSlot}>
-          {selected.photo ? (
-            <Image
-              key={selected.id}
-              src={selected.photo}
-              alt={`${selected.year} ${selected.label}`}
-              fill
-              sizes="260px"
-              className={styles.photo}
-            />
-          ) : null}
+      {openPoint ? (
+        <div className={styles.modalBackdrop} onClick={closeModal}>
+          <div
+            className={styles.modalContent}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${openPoint.year} · ${openPoint.title}`}
+            tabIndex={-1}
+            ref={modalRef}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <p className={styles.modalYear}>{openPoint.year}</p>
+            <p className={styles.modalHeadline}>
+              <span className={styles.modalScore}>
+                {formatScore(openPoint.score)}
+              </span>
+              <span className={styles.modalTitle}>{openPoint.title}</span>
+            </p>
+            <p className={styles.modalText}>{openPoint.text}</p>
+            {openPoint.image ? (
+              <div className={styles.modalImageSlot}>
+                <Image
+                  src={openPoint.image}
+                  alt={`${openPoint.year} ${openPoint.title}`}
+                  fill
+                  sizes="(max-width: 600px) 100vw, 480px"
+                  className={styles.modalImage}
+                />
+              </div>
+            ) : null}
+          </div>
         </div>
-        <div className={styles.detailText}>
-          <p className={styles.detailMeta}>
-            <span className={styles.detailYear}>{selected.year}</span>
-            <span className={styles.detailLabel}>{selected.label}</span>
-          </p>
-          <p className={styles.detailNote}>{selected.note}</p>
-        </div>
-      </div>
+      ) : null}
     </section>
   );
 }
