@@ -3,6 +3,7 @@ import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getAllWeeks } from "@/lib/weeks";
 import { FigureWithCaption } from "@/components/FigureWithCaption";
+import { InterviewPlayer } from "@/components/InterviewPlayer";
 import { LifeGraph } from "@/components/LifeGraph";
 import { QA } from "@/components/QA";
 import { RotatingHomeButton } from "@/components/RotatingHomeButton";
@@ -84,7 +85,7 @@ export default async function WeekPage({
         >
           <MDXRemote
             source={current.content}
-            components={{ FigureWithCaption, LifeGraph, QA }}
+            components={{ FigureWithCaption, InterviewPlayer, LifeGraph, QA }}
           />
         </div>
       </article>

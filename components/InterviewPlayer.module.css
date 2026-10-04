@@ -1,0 +1,227 @@
+.player {
+  margin-top: clamp(56px, 6vw, 72px);
+}
+
+/* 무대: "me"는 왼쪽 위, "friend"는 오른쪽 아래. */
+.stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: min(70vh, 640px);
+  padding: clamp(32px, 5vw, 64px);
+  background: var(--color-bg);
+}
+
+.line {
+  max-width: min(32em, 78%);
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: clamp(1.15rem, 2.2vw, 1.6rem);
+  font-weight: 450;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+  color: var(--color-text-dim);
+  word-break: keep-all;
+  text-wrap: pretty;
+  transition: color 240ms ease;
+}
+
+.me {
+  align-self: flex-start;
+  text-align: left;
+}
+
+.friend {
+  align-self: flex-end;
+  text-align: right;
+}
+
+.active {
+  color: #ffffff;
+}
+
+/* 같은 화자의 다음 발화로 바뀔 때 key가 바뀌어 다시 나타난다. */
+.text {
+  display: inline-block;
+  animation: fade-in 240ms ease both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.playButton {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  background: none;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: border-color 180ms ease;
+}
+
+.playButton:hover,
+.playButton:focus-visible {
+  border-color: var(--color-text-dim);
+}
+
+.playButton svg {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+}
+
+.bar {
+  position: relative;
+  height: 24px;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.bar:focus-visible {
+  outline: 1px solid var(--color-text-dim);
+  outline-offset: 2px;
+}
+
+.track {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  transform: translateY(-50%);
+  background: var(--color-border);
+}
+
+.fill {
+  height: 100%;
+  background: var(--color-text);
+}
+
+.thumb {
+  position: absolute;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-text);
+  transform: translate(-50%, -50%);
+}
+
+.time {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  color: var(--color-text-dim);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.transcript {
+  margin-top: 32px;
+  border-top: 1px solid var(--color-border);
+  padding-top: 16px;
+}
+
+.transcript summary {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--color-text-dim);
+  cursor: pointer;
+}
+
+.transcript summary:hover,
+.transcript summary:focus-visible {
+  color: var(--color-text);
+}
+
+.transcriptList {
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.transcriptItem {
+  display: grid;
+  grid-template-columns: 3.4em minmax(0, 1fr);
+  gap: 0.6em;
+  margin: 0 0 0.35em;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-text-dim);
+  word-break: keep-all;
+}
+
+.transcriptFriend {
+  color: var(--color-text);
+}
+
+.timestamp {
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: var(--font-display);
+  font-size: 0.85em;
+  line-height: inherit;
+  color: #6e6e6e;
+  font-variant-numeric: tabular-nums;
+  text-align: left;
+  cursor: pointer;
+}
+
+.timestamp:hover,
+.timestamp:focus-visible {
+  color: var(--color-text);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .line {
+    transition: none;
+  }
+
+  .text {
+    animation: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .player {
+    margin-top: 48px;
+  }
+
+  .stage {
+    padding: 24px 12px;
+  }
+
+  .line {
+    max-width: 88%;
+    font-size: clamp(1.05rem, 4.6vw, 1.3rem);
+  }
+}
