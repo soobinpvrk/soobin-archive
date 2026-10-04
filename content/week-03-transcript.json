@@ -865,9 +865,17 @@
   },
   {
     "start": 319.0,
+    "end": 321.08,
+    "speaker": "me",
+    "text": "오 그러면",
+    "question": 9,
+    "kind": "talk"
+  },
+  {
+    "start": 321.25,
     "end": 324.66,
     "speaker": "me",
-    "text": "오 그러면 내가 스스로 과소평가하고 있는데",
+    "text": "내가 스스로 과소평가하고 있는데",
     "question": 9,
     "kind": "question"
   },

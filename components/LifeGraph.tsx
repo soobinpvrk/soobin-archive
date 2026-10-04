@@ -2,55 +2,42 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { lifeGraphData, type LifePoint } from "@/content/life-graph";
+import { lifeGraphData, type LifeNode } from "@/content/life-graph";
 import styles from "./LifeGraph.module.css";
 
-const YEAR_MIN = 1996;
-const YEAR_MAX = 2026;
-const SCORE_MAX = 10;
-const DESKTOP_PAD_X = 6;
-const DESKTOP_PAD_Y = 22;
-const GRID_SCORES = [10, 5, 0, -5, -10] as const;
+const EMPTY_TEXT = "아직 적지 않았다.";
 
-function xFromYear(year: number) {
-  const ratio = (year - YEAR_MIN) / (YEAR_MAX - YEAR_MIN);
-  return DESKTOP_PAD_X + ratio * (100 - DESKTOP_PAD_X * 2);
+function statusLabel(node: LifeNode) {
+  if (node.kind === "start") return "시작";
+  if (node.kind === "end") return "지금";
+  return node.status === "past" ? "지나간 욕망" : "지금도 이어지는 욕망";
 }
 
-function yFromScore(score: number) {
-  const halfHeight = 50 - DESKTOP_PAD_Y;
-  return 50 - (score / SCORE_MAX) * halfHeight;
+/* "2009 · 14세". 둘 다 없으면 null. */
+function formatMeta(node: LifeNode) {
+  const parts = [
+    node.year !== undefined ? String(node.year) : null,
+    node.age !== undefined ? `${node.age}세` : null,
+  ].filter(Boolean);
+  return parts.length > 0 ? parts.join(" · ") : null;
 }
 
-function formatScore(score: number) {
-  return score > 0 ? `+${score}` : `${score}`;
-}
-
-function moveByArrowKey(
-  key: string,
-  index: number,
-  total: number,
-  refs: Array<HTMLButtonElement | null>,
-) {
-  const isNext = key === "ArrowRight" || key === "ArrowDown";
-  const isPrev = key === "ArrowLeft" || key === "ArrowUp";
-  if (!isNext && !isPrev) return null;
-  const nextIndex = isNext
-    ? Math.min(index + 1, total - 1)
-    : Math.max(index - 1, 0);
-  refs[nextIndex]?.focus();
-  return nextIndex;
+function cardClassName(node: LifeNode) {
+  if (node.kind !== "desire") return `${styles.card} ${styles.cardEdge}`;
+  return `${styles.card} ${
+    node.status === "ongoing" ? styles.cardOngoing : ""
+  }`;
 }
 
 export function LifeGraph() {
-  const data = [...lifeGraphData].sort((a, b) => a.year - b.year);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const desktopDotRefs = useRef<Array<HTMLButtonElement | null>>([]);
-  const mobileDotRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const trackRef = useRef<HTMLOListElement | null>(null);
+  const cardRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const modalRef = useRef<HTMLDivElement | null>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
 
-  const openPoint: LifePoint | null = openIndex === null ? null : data[openIndex];
+  const openNode: LifeNode | null =
+    openIndex === null ? null : lifeGraphData[openIndex];
 
   function openModal(index: number, trigger: HTMLElement) {
     triggerRef.current = trigger;
@@ -60,6 +47,11 @@ export function LifeGraph() {
   function closeModal() {
     setOpenIndex(null);
   }
+
+  // 새로고침 시 브라우저가 가로 스크롤 위치를 복원해도 첫 노드부터 보이게 한다.
+  useEffect(() => {
+    if (trackRef.current) trackRef.current.scrollLeft = 0;
+  }, []);
 
   useEffect(() => {
     if (openIndex === null) return;
@@ -82,154 +74,82 @@ export function LifeGraph() {
     };
   }, [openIndex]);
 
-  const points = data.map((point, index) => ({
-    point,
-    index,
-    x: xFromYear(point.year),
-    y: yFromScore(point.score),
-  }));
+  function onCardKeyDown(e: React.KeyboardEvent, index: number) {
+    const isNext = e.key === "ArrowRight" || e.key === "ArrowDown";
+    const isPrev = e.key === "ArrowLeft" || e.key === "ArrowUp";
+    if (!isNext && !isPrev) return;
+    e.preventDefault();
+    const nextIndex = isNext
+      ? Math.min(index + 1, lifeGraphData.length - 1)
+      : Math.max(index - 1, 0);
+    cardRefs.current[nextIndex]?.focus();
+  }
 
-  const polylinePoints = points.map((p) => `${p.x},${p.y}`).join(" ");
+  const openMeta = openNode ? formatMeta(openNode) : null;
 
   return (
     <section className={styles.root} aria-label="인생그래프">
-      <div className={styles.graphDesktop}>
-        <svg
-          className={styles.svg}
-          viewBox="0 0 100 100"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-        >
-          {GRID_SCORES.map((v) => (
-            <line
-              key={v}
-              x1="0"
-              x2="100"
-              y1={yFromScore(v)}
-              y2={yFromScore(v)}
-              vectorEffect="non-scaling-stroke"
-              className={v === 0 ? styles.gridZero : styles.gridLine}
-            />
-          ))}
-          <polyline
-            points={polylinePoints}
-            vectorEffect="non-scaling-stroke"
-            className={styles.line}
-          />
-        </svg>
-
-        {points.map(({ point, index, x, y }) => {
-          const isOpen = index === openIndex;
-          const above = index % 2 === 0;
-
+      <ol className={styles.track} ref={trackRef}>
+        {lifeGraphData.map((node, index) => {
+          const meta = formatMeta(node);
           return (
-            <div
-              key={point.year}
-              className={styles.pointWrap}
-              style={{ left: `${x}%`, top: `${y}%` }}
-            >
-              <div
-                className={`${styles.textBlock} ${
-                  above ? styles.textAbove : styles.textBelow
-                }`}
-              >
-                <button
-                  type="button"
-                  className={styles.yearButton}
-                  aria-haspopup="dialog"
-                  aria-expanded={isOpen}
-                  aria-label={`${point.year}년 사건 상세 보기`}
-                  onClick={(e) => openModal(index, e.currentTarget)}
-                >
-                  {point.year}
-                </button>
-                <span className={styles.labelText}>{point.title}</span>
-              </div>
+            <li key={index} className={styles.item}>
               <button
                 type="button"
                 ref={(el) => {
-                  desktopDotRefs.current[index] = el;
+                  cardRefs.current[index] = el;
                 }}
-                className={`${styles.dot} ${isOpen ? styles.dotActive : ""}`}
+                className={cardClassName(node)}
                 aria-haspopup="dialog"
-                aria-expanded={isOpen}
-                aria-label={`${point.year} · ${point.title}`}
+                aria-expanded={index === openIndex}
+                aria-label={`${node.title}, ${statusLabel(node)}`}
                 onClick={(e) => openModal(index, e.currentTarget)}
-                onKeyDown={(e) => {
-                  moveByArrowKey(e.key, index, data.length, desktopDotRefs.current);
-                }}
+                onKeyDown={(e) => onCardKeyDown(e, index)}
               >
-                {isOpen ? <span className={styles.ring} aria-hidden="true" /> : null}
+                {node.title}
               </button>
-            </div>
-          );
-        })}
-      </div>
-
-      <ol className={styles.timelineMobile}>
-        {points.map(({ point, index }) => {
-          const isOpen = index === openIndex;
-
-          return (
-            <li key={point.year} className={styles.timelineRow}>
-              <button
-                type="button"
-                className={styles.timelineYearButton}
-                aria-haspopup="dialog"
-                aria-expanded={isOpen}
-                aria-label={`${point.year}년 사건 상세 보기`}
-                onClick={(e) => openModal(index, e.currentTarget)}
-              >
-                {point.year}
-              </button>
-              <span className={styles.timelineTrack}>
-                <button
-                  type="button"
-                  ref={(el) => {
-                    mobileDotRefs.current[index] = el;
-                  }}
-                  className={`${styles.dot} ${isOpen ? styles.dotActive : ""}`}
-                  aria-haspopup="dialog"
-                  aria-expanded={isOpen}
-                  aria-label={`${point.year} · ${point.title}`}
-                  onClick={(e) => openModal(index, e.currentTarget)}
-                  onKeyDown={(e) => {
-                    moveByArrowKey(e.key, index, data.length, mobileDotRefs.current);
-                  }}
-                >
-                  {isOpen ? <span className={styles.ring} aria-hidden="true" /> : null}
-                </button>
-              </span>
-              <span className={styles.timelineLabel}>{point.title}</span>
+              {meta ? <span className={styles.meta}>{meta}</span> : null}
             </li>
           );
         })}
       </ol>
 
-      {openPoint ? (
+      <ul className={styles.legend} aria-label="범례">
+        <li>
+          <span className={styles.legendSolid} aria-hidden="true" />
+          지나간 욕망
+        </li>
+        <li>
+          <span className={styles.legendDashed} aria-hidden="true" />
+          지금도 이어지는 욕망
+        </li>
+      </ul>
+
+      {openNode ? (
         <div className={styles.modalBackdrop} onClick={closeModal}>
           <div
             className={styles.modalContent}
             role="dialog"
             aria-modal="true"
-            aria-label={`${openPoint.year} · ${openPoint.title}`}
+            aria-label={openNode.title}
             tabIndex={-1}
             ref={modalRef}
             onClick={(e) => e.stopPropagation()}
           >
-            <p className={styles.modalYear}>{openPoint.year}</p>
-            <p className={styles.modalHeadline}>
-              <span className={styles.modalScore}>
-                {formatScore(openPoint.score)}
-              </span>
-              <span className={styles.modalTitle}>{openPoint.title}</span>
-            </p>
-            <p className={styles.modalText}>{openPoint.text}</p>
-            {openPoint.image ? (
+            {openMeta ? <p className={styles.modalYear}>{openMeta}</p> : null}
+            <p className={styles.modalTitle}>{openNode.title}</p>
+            {openNode.text.trim() ? (
+              <p className={styles.modalText}>{openNode.text}</p>
+            ) : (
+              <p className={`${styles.modalText} ${styles.modalEmpty}`}>
+                {EMPTY_TEXT}
+              </p>
+            )}
+            {openNode.image ? (
               <div className={styles.modalImageSlot}>
                 <Image
-                  src={openPoint.image}
-                  alt={`${openPoint.year} ${openPoint.title}`}
+                  src={openNode.image}
+                  alt={openNode.title}
                   fill
                   sizes="(max-width: 600px) 100vw, 480px"
                   className={styles.modalImage}
