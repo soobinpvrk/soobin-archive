@@ -4,10 +4,16 @@ import { Greeting } from "@/components/Greeting";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import styles from "./page.module.css";
 
+/* 수업 과제 상세의 산출물 형식(괄호 안 표기)을 기준으로 묶는다.
+   묶음 순서는 각 묶음의 첫 주차 번호 순. */
 const STAGES = [
-  { title: "글과 그래프", from: 0, to: 3 },
-  { title: "목소리, 영상, 이미지", from: 4, to: 6 },
-  { title: "몸, 장소, 도구", from: 7, to: 9 },
+  { title: "그래프", weeks: [0] },
+  { title: "글", weeks: [1, 2] },
+  { title: "음성", weeks: [3] },
+  { title: "링크", weeks: [4, 7, 8] },
+  { title: "이미지", weeks: [5] },
+  { title: "기획서, 실연", weeks: [6] },
+  { title: "직접 결정", weeks: [9] },
 ] as const;
 
 export default function HomePage() {
@@ -33,8 +39,8 @@ export default function HomePage() {
 
         <div className={styles.stages}>
           {STAGES.map((stage, stageIndex) => {
-            const stageWeeks = weeks.filter(
-              (w) => w.week >= stage.from && w.week <= stage.to,
+            const stageWeeks = weeks.filter((w) =>
+              (stage.weeks as readonly number[]).includes(w.week),
             );
 
             return (

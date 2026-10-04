@@ -27,6 +27,9 @@
   align-items: center;
   justify-content: flex-start;
   min-width: 2.2em;
+  /* 글자가 타이핑되기 전부터 한 줄 높이를 확보해, "저는"이 나타날 때
+     블록 전체 높이가 변하지 않게 한다(위의 인사가 밀려 올라가지 않음). */
+  height: 1.2em;
   margin: -0.24em 0 0;
   font-family: var(--font-body);
   font-size: clamp(3.2rem, 14vw, 9rem);
