@@ -4,17 +4,20 @@ import { Greeting } from "@/components/Greeting";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import styles from "./page.module.css";
 
-/* 수업 과제 상세의 산출물 형식(괄호 안 표기)을 기준으로 묶는다.
-   묶음 순서는 각 묶음의 첫 주차 번호 순. */
-const STAGES = [
-  { title: "그래프", weeks: [0] },
-  { title: "글", weeks: [1, 2] },
-  { title: "음성", weeks: [3] },
-  { title: "링크", weeks: [4, 7, 8] },
-  { title: "이미지", weeks: [5] },
-  { title: "기획서, 실연", weeks: [6] },
-  { title: "직접 결정", weeks: [9] },
-] as const;
+/* 수업 과제 상세의 산출물 형식(괄호 안 표기). 목록은 주차 번호 순으로 두고
+   형식은 바로 위 줄과 다를 때만 보인다. */
+const FORMATS: Record<number, string> = {
+  0: "그래프",
+  1: "글",
+  2: "글",
+  3: "음성",
+  4: "링크",
+  5: "이미지",
+  6: "기획서, 실연",
+  7: "링크",
+  8: "링크",
+  9: "직접 결정",
+};
 
 export default function HomePage() {
   const weeks = getAllWeeks();
@@ -37,56 +40,46 @@ export default function HomePage() {
           </header>
         </ScrollReveal>
 
-        <div className={styles.stages}>
-          {STAGES.map((stage, stageIndex) => {
-            const stageWeeks = weeks.filter((w) =>
-              (stage.weeks as readonly number[]).includes(w.week),
-            );
+        <ScrollReveal>
+          <ol className={styles.list}>
+            {weeks.map((w, i) => {
+              const isDone = w.status === "done";
+              const format = FORMATS[w.week] ?? "";
+              const showFormat = i === 0 || FORMATS[weeks[i - 1].week] !== format;
+              const label = (
+                <>
+                  <span className={styles.weekNumber}>
+                    {String(w.week).padStart(2, "0")}
+                  </span>
+                  <span className={styles.constraint}>{w.constraint}</span>
+                </>
+              );
 
-            return (
-              <ScrollReveal key={stage.title} delay={stageIndex * 110}>
-                <section className={styles.stage}>
-                  <h3 className={styles.stageTitle}>{stage.title}</h3>
-                  <ol className={styles.list}>
-                    {stageWeeks.map((w) => {
-                      const isDone = w.status === "done";
-                      const label = (
-                        <>
-                          <span className={styles.weekNumber}>
-                            {String(w.week).padStart(2, "0")}
-                          </span>
-                          <span className={styles.constraint}>
-                            {w.constraint}
-                          </span>
-                        </>
-                      );
-
-                      return (
-                        <li key={w.week} className={styles.item}>
-                          {isDone ? (
-                            <Link
-                              href={`/introduction/${w.week}`}
-                              className={styles.itemLink}
-                            >
-                              {label}
-                            </Link>
-                          ) : (
-                            <span
-                              className={`${styles.itemLink} ${styles.upcoming}`}
-                              aria-disabled="true"
-                            >
-                              {label}
-                            </span>
-                          )}
-                        </li>
-                      );
-                    })}
-                  </ol>
-                </section>
-              </ScrollReveal>
-            );
-          })}
-        </div>
+              return (
+                <li key={w.week} className={styles.item}>
+                  <span className={styles.format}>
+                    {showFormat ? format : ""}
+                  </span>
+                  {isDone ? (
+                    <Link
+                      href={`/introduction/${w.week}`}
+                      className={styles.itemLink}
+                    >
+                      {label}
+                    </Link>
+                  ) : (
+                    <span
+                      className={`${styles.itemLink} ${styles.upcoming}`}
+                      aria-disabled="true"
+                    >
+                      {label}
+                    </span>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+        </ScrollReveal>
       </section>
     </main>
   );

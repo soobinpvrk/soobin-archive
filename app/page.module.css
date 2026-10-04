@@ -46,30 +46,7 @@
   white-space: nowrap;
 }
 
-/* 카테고리는 왼쪽, 주차별 콘텐츠는 오른쪽에 놓는다. */
-.stages {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(36px, 4.2vw, 64px);
-}
-
-.stage {
-  display: grid;
-  grid-template-columns: minmax(180px, 0.55fr) minmax(0, 1fr);
-  column-gap: clamp(32px, 5vw, 80px);
-  align-items: start;
-  border-top: 1px solid var(--color-border);
-}
-
-.stageTitle {
-  font-size: 1em;
-  font-weight: 600;
-  line-height: 1.35;
-  color: var(--color-text-dim);
-  margin: 0;
-  padding: 0.68em 0;
-}
-
+/* 한 줄 = 형식(왼쪽) + 번호·제약(오른쪽). 구분선은 줄 전체에 긋는다. */
 .list {
   list-style: none;
   padding-left: 0;
@@ -77,11 +54,19 @@
 }
 
 .item {
-  border-bottom: 1px solid var(--color-border);
+  display: grid;
+  grid-template-columns: minmax(180px, 0.55fr) minmax(0, 1fr);
+  column-gap: clamp(32px, 5vw, 80px);
+  align-items: baseline;
+  border-top: 1px solid var(--color-border);
 }
 
-.item:last-child {
-  border-bottom: 0;
+.format {
+  font-size: 1em;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--color-text-dim);
+  padding: 0.68em 0;
 }
 
 /* 호버는 글자 색만 바꾼다. globals.css의 전역 a:hover가 배경을 반전시키므로
@@ -126,17 +111,14 @@ a.itemLink:hover {
     white-space: normal;
   }
 
-  .stages {
-    gap: 36px;
-  }
-
-  .stage {
-    grid-template-columns: 1fr;
+  /* 좁은 폭에서는 형식 칸을 숨기고 번호·제약만 한 줄씩 둔다. */
+  .item {
+    grid-template-columns: minmax(0, 1fr);
     column-gap: 0;
   }
 
-  .stageTitle {
-    padding-bottom: 0.48em;
+  .format {
+    display: none;
   }
 
   .intro {
