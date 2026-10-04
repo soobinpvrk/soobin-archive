@@ -7,6 +7,7 @@ import { InterviewPlayer } from "@/components/InterviewPlayer";
 import { LifeGraph } from "@/components/LifeGraph";
 import { QA } from "@/components/QA";
 import { RotatingHomeButton } from "@/components/RotatingHomeButton";
+import { SectionTitle, headingClassName } from "@/components/SectionTitle";
 import styles from "./page.module.css";
 
 export function generateStaticParams() {
@@ -75,7 +76,7 @@ export default async function WeekPage({
           <p className={styles.weekLabel}>
             Week {String(current.week).padStart(2, "0")}
           </p>
-          <h1 className={styles.title}>{current.constraint}</h1>
+          <h1 className={`${headingClassName} ${styles.title}`}>{current.constraint}</h1>
         </header>
 
         <div
@@ -85,7 +86,13 @@ export default async function WeekPage({
         >
           <MDXRemote
             source={current.content}
-            components={{ FigureWithCaption, InterviewPlayer, LifeGraph, QA }}
+            components={{
+              FigureWithCaption,
+              InterviewPlayer,
+              LifeGraph,
+              QA,
+              SectionTitle,
+            }}
           />
         </div>
       </article>

@@ -73,19 +73,13 @@ a.tocItem:focus-visible {
   margin-bottom: 0.6em;
 }
 
+/* 글꼴·크기·굵기·자간은 SectionTitle.module.css의 .heading과 공유한다. */
 .title {
-  font-size: clamp(1.85rem, 2.5vw, 2.3rem);
-  letter-spacing: -0.025em;
   margin-bottom: 0.5em;
 }
 
 .body {
   margin-bottom: 0;
-}
-
-/* 본문 중간의 소제목은 2주차 소설 제목(.storyBody)과 같은 간격을 둔다. */
-.body > * + h2 {
-  margin-top: clamp(56px, 6vw, 72px);
 }
 
 /* 소설도 인터뷰의 첫 질문과 같은 위치에서 시작한다. */
@@ -115,8 +109,7 @@ a.tocItem:focus-visible {
     padding-left: 0;
   }
 
-  .storyBody,
-  .body > * + h2 {
+  .storyBody {
     margin-top: 48px;
   }
 
