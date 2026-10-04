@@ -2,19 +2,54 @@
   margin-top: clamp(56px, 6vw, 72px);
 }
 
-/* 무대: "me"는 왼쪽 위, "friend"는 오른쪽 아래. */
-.stage {
+/* 무대 프레임: 클릭하면 재생/일시정지, 가운데 버튼이 겹쳐 놓인다. */
+.frame {
   position: relative;
+  cursor: pointer;
+}
+
+.frame:focus-visible {
+  outline: 1px solid var(--color-text-dim);
+  outline-offset: 2px;
+}
+
+/* 위는 지금 질문, 아래는 대화. 대화에서 "me"는 왼쪽 위, "friend"는 오른쪽 아래. */
+.stage {
+  --stage-pad: clamp(24px, 4vw, 48px);
+  --question-size: clamp(1.05rem, 1.6vw, 1.3rem);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  --stage-pad: clamp(24px, 4vw, 48px);
-  /* em은 발화 글자 크기. 세로가 짧은 화면에서도 가장 긴 두 발화(2줄 + 3줄)와
-     그 사이 0.4em이 들어가도록, 필요할 때만 기본 높이보다 늘어난다. */
+  gap: 0.6em;
+  /* em은 대화 글자 크기. 세로가 짧은 화면에서도 질문(2줄)과 가장 긴 두 발화
+     (2줄 + 3줄)가 들어가도록, 필요할 때만 기본 높이보다 늘어난다. */
   font-size: clamp(1.5rem, 3.2vw, 2.4rem);
-  height: max(clamp(300px, 40vh, 420px), calc(7.4em + 2 * var(--stage-pad)));
+  height: max(
+    clamp(380px, 55vh, 520px),
+    calc(8em + 3 * var(--question-size) + 2 * var(--stage-pad))
+  );
   padding: var(--stage-pad);
   background: var(--color-bg);
+}
+
+.question {
+  min-height: calc(var(--question-size) * 1.5);
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--question-size);
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: -0.015em;
+  color: #ffffff;
+  word-break: keep-all;
+  text-wrap: pretty;
+}
+
+.dialogue {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 0;
 }
 
 .line {
@@ -25,10 +60,8 @@
   font-weight: 700;
   line-height: 1.4;
   letter-spacing: -0.02em;
-  color: var(--color-text-dim);
   word-break: keep-all;
   text-wrap: pretty;
-  transition: color 240ms ease;
 }
 
 .me {
@@ -41,23 +74,67 @@
   text-align: right;
 }
 
-.active {
-  color: #ffffff;
+/* 새 발화는 key가 바뀌어 짧게 나타나고, 말이 끝난 뒤 HOLD가 지나면 사라진다. */
+.utterance {
+  display: block;
+  animation: fade-in 240ms ease backwards;
+  transition: opacity 400ms ease;
 }
 
-/* 같은 화자의 다음 발화로 바뀔 때 key가 바뀌어 다시 나타난다. */
-.text {
-  display: inline-block;
-  animation: fade-in 240ms ease both;
+.gone {
+  opacity: 0;
 }
 
 @keyframes fade-in {
   from {
     opacity: 0;
   }
-  to {
-    opacity: 1;
-  }
+}
+
+/* 말하는 만큼 앞에서부터 흰색으로 채운다. inline + slice라 줄바꿈된
+   여러 줄이 한 줄로 이어진 것처럼 순서대로 채워진다. */
+.fill {
+  /* Greeting처럼 경계가 서서히 밝아지도록 1.5em 폭으로 번지게 한다.
+     --fill은 진행률에 맞춰 0에서 100% + 1.5em까지 움직인다. */
+  background-image: linear-gradient(
+    90deg,
+    #ffffff calc(var(--fill) - 1.5em),
+    #4a4a4a var(--fill)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-box-decoration-break: slice;
+  box-decoration-break: slice;
+  color: transparent;
+}
+
+.overlayButton {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  transition: opacity 300ms ease;
+}
+
+.overlayButton svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.overlayHidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .controls {
@@ -68,7 +145,12 @@
   margin-top: 20px;
 }
 
-.playButton {
+.skipButtons {
+  display: flex;
+  gap: 8px;
+}
+
+.iconButton {
   display: grid;
   place-items: center;
   width: 36px;
@@ -79,22 +161,30 @@
   background: none;
   color: var(--color-text);
   cursor: pointer;
-  transition: border-color 180ms ease;
+  transition: border-color 180ms ease, opacity 180ms ease;
 }
 
-.playButton:hover,
-.playButton:focus-visible {
+.iconButton:hover:not(:disabled),
+.iconButton:focus-visible {
   border-color: var(--color-text-dim);
 }
 
-.playButton svg {
+.iconButton:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.iconButton svg {
   width: 12px;
   height: 12px;
   fill: currentColor;
 }
 
+/* 질문 단위로 나뉜 진행 바. 칸 사이 간격 2px. */
 .bar {
-  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 2px;
   height: 24px;
   cursor: pointer;
   touch-action: none;
@@ -105,29 +195,45 @@
   outline-offset: 2px;
 }
 
-.track {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 2px;
-  transform: translateY(-50%);
-  background: var(--color-border);
+.segment {
+  position: relative;
+  flex-basis: 0;
+  min-width: 2px;
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 
-.fill {
+.track {
+  width: 100%;
+  height: 4px;
+  background: var(--color-border);
+  transition: height 150ms ease;
+}
+
+.played {
   height: 100%;
-  background: var(--color-text);
+  background: #ffffff;
 }
 
 .thumb {
   position: absolute;
   top: 50%;
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
-  background: var(--color-text);
+  background: #ffffff;
   transform: translate(-50%, -50%);
+  transition: width 150ms ease, height 150ms ease;
+}
+
+.bar:hover .track {
+  height: 6px;
+}
+
+.bar:hover .thumb {
+  width: 14px;
+  height: 14px;
 }
 
 .time {
@@ -137,63 +243,6 @@
   color: var(--color-text-dim);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
-}
-
-.transcript {
-  margin-top: 32px;
-  border-top: 1px solid var(--color-border);
-  padding-top: 16px;
-}
-
-.transcript summary {
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  color: var(--color-text-dim);
-  cursor: pointer;
-}
-
-.transcript summary:hover,
-.transcript summary:focus-visible {
-  color: var(--color-text);
-}
-
-.transcriptList {
-  margin: 20px 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.transcriptItem {
-  display: grid;
-  grid-template-columns: 3.4em minmax(0, 1fr);
-  gap: 0.6em;
-  margin: 0 0 0.35em;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: var(--color-text-dim);
-  word-break: keep-all;
-}
-
-.transcriptFriend {
-  color: var(--color-text);
-}
-
-.timestamp {
-  padding: 0;
-  border: none;
-  background: none;
-  font-family: var(--font-display);
-  font-size: 0.85em;
-  line-height: inherit;
-  color: #6e6e6e;
-  font-variant-numeric: tabular-nums;
-  text-align: left;
-  cursor: pointer;
-}
-
-.timestamp:hover,
-.timestamp:focus-visible {
-  color: var(--color-text);
 }
 
 .srOnly {
@@ -206,12 +255,20 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .line {
+  .utterance {
+    animation: none;
     transition: none;
   }
 
-  .text {
-    animation: none;
+  .fill {
+    background: none;
+    color: #ffffff;
+  }
+
+  .overlayButton,
+  .track,
+  .thumb {
+    transition: none;
   }
 }
 
@@ -220,15 +277,22 @@
     margin-top: 48px;
   }
 
-  /* 모바일은 두 자리 모두 3줄까지 고려한다. */
+  /* 모바일은 질문 3줄, 두 자리 모두 3줄까지 고려한다. */
   .stage {
     --stage-pad: 24px;
     font-size: clamp(1.25rem, 5.2vw, 1.5rem);
-    height: max(clamp(300px, 40vh, 420px), calc(8.8em + 2 * var(--stage-pad)));
+    height: max(
+      clamp(380px, 55vh, 520px),
+      calc(9.4em + 4.5 * var(--question-size) + 2 * var(--stage-pad))
+    );
     padding: var(--stage-pad) 12px;
   }
 
   .line {
     max-width: 88%;
+  }
+
+  .controls {
+    gap: 12px;
   }
 }

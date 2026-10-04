@@ -3,948 +3,1312 @@
     "start": 2.78,
     "end": 4.06,
     "speaker": "me",
-    "text": "안녕하세요"
+    "text": "안녕하세요",
+    "question": 0,
+    "kind": "talk"
   },
   {
     "start": 4.06,
     "end": 4.94,
     "speaker": "friend",
-    "text": "안녕하세요"
+    "text": "안녕하세요",
+    "question": 0,
+    "kind": "talk"
   },
   {
     "start": 8.94,
     "end": 11.12,
     "speaker": "me",
-    "text": "바로 본론부터 갑니다"
+    "text": "바로 본론부터 갑니다",
+    "question": 0,
+    "kind": "talk"
   },
   {
     "start": 11.12,
     "end": 12.14,
     "speaker": "friend",
-    "text": "예"
+    "text": "예",
+    "question": 0,
+    "kind": "talk"
   },
   {
     "start": 15.98,
     "end": 19.02,
     "speaker": "me",
-    "text": "저의 첫인상이 기억이 나시나요?"
+    "text": "저의 첫인상이 기억이 나시나요?",
+    "question": 1,
+    "kind": "question"
   },
   {
     "start": 19.14,
     "end": 20.14,
     "speaker": "me",
-    "text": "어땠나요?"
+    "text": "어땠나요?",
+    "question": 1,
+    "kind": "question"
   },
   {
     "start": 20.44,
     "end": 22.16,
     "speaker": "friend",
-    "text": "어.. 첫인상?"
+    "text": "어.. 첫인상?",
+    "question": 1,
+    "kind": "talk"
   },
   {
     "start": 22.98,
     "end": 26.74,
     "speaker": "friend",
-    "text": "아.. 매우 그림자 같은 아이다"
+    "text": "아.. 매우 그림자 같은 아이다",
+    "question": 1,
+    "kind": "talk"
   },
   {
     "start": 26.74,
     "end": 27.84,
     "speaker": "friend",
-    "text": "조용히"
+    "text": "조용히",
+    "question": 1,
+    "kind": "talk"
   },
   {
     "start": 27.84,
     "end": 29.64,
     "speaker": "friend",
-    "text": "음침하게"
+    "text": "음침하게",
+    "question": 1,
+    "kind": "talk"
   },
   {
     "start": 29.64,
     "end": 32.98,
     "speaker": "friend",
-    "text": "남들 뒤에서 조용히 있는 아이구나"
+    "text": "남들 뒤에서 조용히 있는 아이구나",
+    "question": 1,
+    "kind": "talk"
   },
   {
     "start": 32.98,
     "end": 35.56,
     "speaker": "friend",
-    "text": "주변 사람들이 워낙 시끄러워가지고"
+    "text": "주변 사람들이 워낙 시끄러워가지고",
+    "question": 1,
+    "kind": "talk"
   },
   {
     "start": 35.56,
     "end": 37.72,
     "speaker": "friend",
-    "text": "너가 더 그림자 같았지"
+    "text": "너가 더 그림자 같았지",
+    "question": 1,
+    "kind": "talk"
   },
   {
     "start": 37.72,
     "end": 38.34,
     "speaker": "friend",
-    "text": "요"
+    "text": "요",
+    "question": 1,
+    "kind": "talk"
   },
   {
     "start": 42.04,
     "end": 43.54,
     "speaker": "me",
-    "text": "그때와 저는"
+    "text": "그때와 저는",
+    "question": 2,
+    "kind": "question"
   },
   {
     "start": 43.54,
     "end": 45.06,
     "speaker": "me",
-    "text": "다른가요?"
+    "text": "다른가요?",
+    "question": 2,
+    "kind": "question"
   },
   {
     "start": 45.34,
     "end": 46.2,
     "speaker": "friend",
-    "text": "매우 다르죠"
+    "text": "매우 다르죠",
+    "question": 2,
+    "kind": "talk"
   },
   {
     "start": 46.2,
     "end": 48.74,
     "speaker": "friend",
-    "text": "지금은 자아도 확실하고"
+    "text": "지금은 자아도 확실하고",
+    "question": 2,
+    "kind": "talk"
   },
   {
     "start": 48.74,
     "end": 51.44,
     "speaker": "friend",
-    "text": "눈빛이 총명하고"
+    "text": "눈빛이 총명하고",
+    "question": 2,
+    "kind": "talk"
   },
   {
     "start": 51.44,
     "end": 53.9,
     "speaker": "friend",
-    "text": "그때에 비하면"
+    "text": "그때에 비하면",
+    "question": 2,
+    "kind": "talk"
   },
   {
     "start": 53.9,
     "end": 55.44,
     "speaker": "friend",
-    "text": "많이 밝아졌다"
+    "text": "많이 밝아졌다",
+    "question": 2,
+    "kind": "talk"
   },
   {
     "start": 55.44,
     "end": 58.02,
     "speaker": "friend",
-    "text": "나는 생각이 듭니다"
+    "text": "라는 생각이 듭니다",
+    "question": 2,
+    "kind": "talk"
   },
   {
     "start": 58.02,
     "end": 61.92,
     "speaker": "me",
-    "text": "오케이. 좀 어려워요 이건."
+    "text": "오케이. 좀 어려워요 이건.",
+    "question": 2,
+    "kind": "talk"
   },
   {
     "start": 62.22,
     "end": 62.32,
     "speaker": "friend",
-    "text": "예."
+    "text": "예.",
+    "question": 2,
+    "kind": "talk"
   },
   {
     "start": 64.86,
     "end": 67.4,
     "speaker": "me",
-    "text": "박수빈을 세 개의 단어로 표현하면?"
+    "text": "박수빈을 세 개의 단어로 표현하면?",
+    "question": 3,
+    "kind": "question"
   },
   {
     "start": 67.86,
     "end": 69.78,
     "speaker": "friend",
-    "text": "단어? 세 개의 단어? 박수빈을?"
+    "text": "단어? 세 개의 단어? 박수빈을?",
+    "question": 3,
+    "kind": "talk"
   },
   {
     "start": 70.14,
     "end": 70.74,
     "speaker": "friend",
-    "text": "단어?"
+    "text": "단어?",
+    "question": 3,
+    "kind": "talk"
   },
   {
     "start": 71.42,
     "end": 73.48,
     "speaker": "friend",
-    "text": "단어랑 형용사랑 이런 거 구분 잘 못해."
+    "text": "단어랑 형용사랑 이런 거 구분 잘 못해.",
+    "question": 3,
+    "kind": "talk"
   },
   {
     "start": 73.62,
     "end": 73.86,
     "speaker": "friend",
-    "text": "나 바보."
+    "text": "나 바보.",
+    "question": 3,
+    "kind": "talk"
   },
   {
     "start": 73.92,
     "end": 74.3,
     "speaker": "me",
-    "text": "강해?"
+    "text": "걍 해",
+    "question": 3,
+    "kind": "talk"
   },
   {
     "start": 74.44,
     "end": 74.88,
     "speaker": "friend",
-    "text": "아 됐어."
+    "text": "알았어.",
+    "question": 3,
+    "kind": "talk"
   },
   {
     "start": 75.76,
     "end": 77.22,
     "speaker": "friend",
-    "text": "박수빈은 세 개의 단어?"
+    "text": "박수빈을 세 개의 단어?",
+    "question": 3,
+    "kind": "talk"
   },
   {
     "start": 79.66,
     "end": 80.26,
     "speaker": "friend",
-    "text": "단어?"
+    "text": "단어?",
+    "question": 3,
+    "kind": "talk"
   },
   {
     "start": 81.22,
     "end": 81.96,
     "speaker": "friend",
-    "text": "세 개의 단어?"
+    "text": "세 개의 단어?",
+    "question": 3,
+    "kind": "talk"
   },
   {
     "start": 85.68,
     "end": 87.84,
     "speaker": "friend",
-    "text": "좋은 말 해야 되는 건 아니지?"
+    "text": "좋은 말 해야 되는 건 아니지?",
+    "question": 3,
+    "kind": "talk"
   },
   {
     "start": 88.06,
     "end": 89.18,
     "speaker": "me",
-    "text": "상관없어."
+    "text": "상관없어.",
+    "question": 3,
+    "kind": "talk"
   },
   {
     "start": 89.56,
     "end": 90.72,
     "speaker": "friend",
-    "text": "봤으면 세계 단어?"
+    "text": "박수빈을 세 개의 단어?",
+    "question": 3,
+    "kind": "talk"
   },
   {
     "start": 96.14,
     "end": 97.8,
-    "speaker": "me",
-    "text": "끊어야 될 것 같은데?"
+    "speaker": "friend",
+    "text": "끊어야 될 것 같은데?",
+    "question": 3,
+    "kind": "talk"
   },
   {
     "start": 98.64,
     "end": 100.14,
     "speaker": "friend",
-    "text": "봤으면 세계 단어?"
+    "text": "박수빈을 세 개의 단어?",
+    "question": 3,
+    "kind": "talk"
   },
   {
     "start": 100.88,
     "end": 102.54,
     "speaker": "friend",
-    "text": "아 바보."
+    "text": "아 바보.",
+    "question": 3,
+    "kind": "talk"
+  },
+  {
+    "start": 102.6,
+    "end": 103.3,
+    "speaker": "me",
+    "text": "어.",
+    "question": 3,
+    "kind": "talk"
   },
   {
     "start": 103.3,
     "end": 110.04,
     "speaker": "friend",
-    "text": "바보고 하지만 똑똑하고 허술하다."
+    "text": "바보고 하지만 똑똑하고 허술하다.",
+    "question": 3,
+    "kind": "talk"
   },
   {
     "start": 110.04,
     "end": 114.4,
     "speaker": "me",
-    "text": "오 세기가 진짜 어? 약간 이런"
+    "text": "오 세개가 진짜 오↘아↗오↘ 약간 이런",
+    "question": 3,
+    "kind": "talk"
   },
   {
     "start": 116.38,
     "end": 119.22,
     "speaker": "me",
-    "text": "저한테 똑똑하다고 처음 말하셨어요"
+    "text": "저한테 똑똑하다고 처음 말하셨어요",
+    "question": 4,
+    "kind": "question"
   },
   {
     "start": 119.22,
     "end": 122.02,
     "speaker": "me",
-    "text": "어떤 부분에서 똑똑하다 느끼셨죠?"
+    "text": "어떤 부분에서 똑똑하다 느끼셨죠?",
+    "question": 4,
+    "kind": "question"
   },
   {
     "start": 123.04,
     "end": 125.56,
     "speaker": "friend",
-    "text": "너가 생각하고 너가 생각해본 적 있고"
+    "text": "너가 생각하고 너가 생각해본 적 있고",
+    "question": 4,
+    "kind": "talk"
   },
   {
     "start": 125.56,
     "end": 128.76,
     "speaker": "friend",
-    "text": "너가 좋아하는 분야에서는 확실히 똑똑해"
+    "text": "너가 좋아하는 분야에서는 확실히 똑똑해",
+    "question": 4,
+    "kind": "talk"
   },
   {
     "start": 128.76,
     "end": 130.66,
     "speaker": "friend",
-    "text": "그리고 그 이외의 모든 것"
+    "text": "그리고 그 이외의 모든 것",
+    "question": 4,
+    "kind": "talk"
   },
   {
     "start": 131.72,
     "end": 133.94,
     "speaker": "friend",
-    "text": "생활에 대해서는 너 진짜 바보 같고"
+    "text": "생활에 대해서는 너 진짜 바보 같고",
+    "question": 4,
+    "kind": "talk"
   },
   {
     "start": 133.94,
     "end": 135.74,
-    "speaker": "friend",
-    "text": "라이프 이디엇"
+    "speaker": "me",
+    "text": "라이프 이디엇",
+    "question": 4,
+    "kind": "talk"
   },
   {
     "start": 135.74,
     "end": 140.42,
     "speaker": "friend",
-    "text": "그리고 너가 뭘 하고자 한 걸 끝낸 그 이후부터는 바로 허술해"
+    "text": "그리고 너가 뭘 하고자 한 걸 끝낸 그 이후부터는 바로 허술해",
+    "question": 4,
+    "kind": "talk"
   },
   {
     "start": 141.52,
     "end": 141.88,
     "speaker": "friend",
-    "text": "집니다."
+    "text": "집니다.",
+    "question": 4,
+    "kind": "talk"
   },
   {
     "start": 145.58,
     "end": 146.42,
     "speaker": "me",
-    "text": "처음 안 사실"
+    "text": "처음 안 사실",
+    "question": 4,
+    "kind": "talk"
   },
   {
     "start": 148.82,
     "end": 150.48,
     "speaker": "me",
-    "text": "그러면 아 이것도 살짝 어려울 수 있어"
+    "text": "그러면 아 이것도 살짝 어려울 수 있어",
+    "question": 5,
+    "kind": "question"
   },
   {
     "start": 150.48,
     "end": 156.54,
     "speaker": "me",
-    "text": "나는 모르는데 너는 알고 있는 내 습관이나 버릇이 있어?"
+    "text": "나는 모르는데 너는 알고 있는 내 습관이나 버릇이 있어?",
+    "question": 5,
+    "kind": "question"
   },
   {
     "start": 156.92,
     "end": 158.12,
     "speaker": "friend",
-    "text": "습관이나 버릇?"
+    "text": "습관이나 버릇?",
+    "question": 5,
+    "kind": "talk"
   },
   {
     "start": 158.32,
     "end": 159.58,
     "speaker": "me",
-    "text": "내가 몰라야 돼"
+    "text": "내가 몰라야 돼",
+    "question": 5,
+    "kind": "talk"
   },
   {
     "start": 159.58,
     "end": 161.48,
     "speaker": "friend",
-    "text": "너가 몰라야 돼?"
+    "text": "너가 몰라야 돼?",
+    "question": 5,
+    "kind": "talk"
   },
   {
     "start": 162.6,
     "end": 163.38,
     "speaker": "friend",
-    "text": "알 것 같은데?"
+    "text": "알 것 같은데?",
+    "question": 5,
+    "kind": "talk"
   },
   {
     "start": 163.38,
     "end": 166.64,
     "speaker": "friend",
-    "text": "너가 모르는 너의 습관이나 버릇?"
+    "text": "너가 모르는 너의 습관이나 버릇?",
+    "question": 5,
+    "kind": "talk"
   },
   {
     "start": 173.84,
     "end": 175.06,
     "speaker": "me",
-    "text": "관심이 없구먼"
+    "text": "관심이 없고만",
+    "question": 5,
+    "kind": "talk"
   },
   {
     "start": 175.06,
     "end": 175.64,
     "speaker": "friend",
-    "text": "응"
+    "text": "응",
+    "question": 5,
+    "kind": "talk"
   },
   {
     "start": 175.64,
     "end": 177.88,
     "speaker": "friend",
-    "text": "너가 모르는 너의 습관이나 버릇?"
+    "text": "너가 모르는 너의 습관이나 버릇?",
+    "question": 5,
+    "kind": "talk"
   },
   {
     "start": 183.28,
     "end": 184.88,
     "speaker": "friend",
-    "text": "버릇은 없는 것 같고"
+    "text": "버릇은 없는 것 같고",
+    "question": 5,
+    "kind": "talk"
   },
   {
     "start": 184.88,
     "end": 185.2,
-    "speaker": "friend",
-    "text": "어"
+    "speaker": "me",
+    "text": "어",
+    "question": 5,
+    "kind": "talk"
   },
   {
     "start": 185.2,
     "end": 187.34,
     "speaker": "friend",
-    "text": "습관이라고 하면"
+    "text": "습관이라고 하면",
+    "question": 5,
+    "kind": "talk"
   },
   {
     "start": 191.42,
     "end": 193.2,
     "speaker": "friend",
-    "text": "나는 위기에 놓였을 때"
+    "text": "나는 위기에 놓였을 때",
+    "question": 5,
+    "kind": "talk"
   },
   {
     "start": 193.2,
     "end": 200.5,
     "speaker": "friend",
-    "text": "너가 생각을 정리해야 되는 순간이 왔을 때 정리가 안되면"
+    "text": "너가 생각을 정리해야 되는 순간이 왔을 때 정리가 안되면",
+    "question": 5,
+    "kind": "talk"
   },
   {
     "start": 200.5,
     "end": 204.18,
     "speaker": "friend",
-    "text": "되게 다방면에서의 의견을 다 나열해"
+    "text": "되게 다방면에서의 의견을 다 나열해",
+    "question": 5,
+    "kind": "talk"
   },
   {
     "start": 205.36,
     "end": 209.58,
     "speaker": "friend",
-    "text": "다 나열한 다음에 그중에 맞는 걸 생각하려고 하는 것 같은데"
+    "text": "다 나열한 다음에 그중에 맞는 걸 생각하려고 하는 것 같은데",
+    "question": 5,
+    "kind": "talk"
   },
   {
     "start": 209.58,
     "end": 210.94,
     "speaker": "friend",
-    "text": "수렴을 못한다"
+    "text": "수렴을 못한다",
+    "question": 5,
+    "kind": "talk"
   },
   {
     "start": 211.58,
     "end": 212.24,
     "speaker": "friend",
-    "text": "수렴을 못해"
+    "text": "수렴을 못해",
+    "question": 5,
+    "kind": "talk"
   },
   {
     "start": 213.58,
     "end": 215.4,
     "speaker": "friend",
-    "text": "매 순간 똑똑하다 했죠?"
+    "text": "매 순간 똑똑하다 했죠?",
+    "question": 5,
+    "kind": "talk"
   },
   {
     "start": 215.72,
     "end": 216.44,
     "speaker": "friend",
-    "text": "똑똑하다고 했잖아요?"
+    "text": "똑똑하다고 했잖아요?",
+    "question": 5,
+    "kind": "talk"
   },
   {
     "start": 216.7,
+    "end": 216.86,
+    "speaker": "me",
+    "text": "예.",
+    "question": 5,
+    "kind": "talk"
+  },
+  {
+    "start": 216.86,
     "end": 218.9,
     "speaker": "friend",
-    "text": "그 순간은 뭔가 딱"
+    "text": "그 순간은 뭔가 딱",
+    "question": 5,
+    "kind": "talk"
   },
   {
     "start": 218.9,
     "end": 221.66,
     "speaker": "friend",
-    "text": "네가 생각이 확고했던 거에서는 그런 걸 잘하는데"
+    "text": "네가 생각이 확고했던 거에서는 그런 걸 잘하는데",
+    "question": 5,
+    "kind": "talk"
   },
   {
     "start": 221.66,
     "end": 224.14,
     "speaker": "friend",
-    "text": "그 진짜 바보가 되는 그 순간에는"
+    "text": "그 진짜 바보가 되는 그 순간에는",
+    "question": 5,
+    "kind": "talk"
   },
   {
     "start": 225.48,
     "end": 226.98,
     "speaker": "friend",
-    "text": "수렴을 못한거죠"
+    "text": "수렴을 못한거죠",
+    "question": 5,
+    "kind": "talk"
   },
   {
     "start": 227.58,
     "end": 229.14,
     "speaker": "friend",
-    "text": "수렴, 맞는 말 같습니다"
+    "text": "수렴, 맞는 말 같습니다",
+    "question": 5,
+    "kind": "talk"
   },
   {
     "start": 229.14,
     "end": 229.8,
     "speaker": "me",
-    "text": "그치"
+    "text": "그치",
+    "question": 5,
+    "kind": "talk"
   },
   {
     "start": 229.8,
     "end": 231.9,
     "speaker": "me",
-    "text": "당신은 날 너무 잘 알아"
+    "text": "당신은 날 너무 잘 알아",
+    "question": 5,
+    "kind": "talk"
   },
   {
     "start": 231.9,
     "end": 233.98,
     "speaker": "me",
-    "text": "그럼 다음"
+    "text": "그럼 다음",
+    "question": 5,
+    "kind": "talk"
   },
   {
     "start": 236.38,
     "end": 239.94,
     "speaker": "me",
-    "text": "지금 내가 기분 좋을 때랑 안 좋을 때를 구분하실 수 있나요?"
+    "text": "지금 내가 기분 좋을 때랑 안 좋을 때를 구분하실 수 있나요?",
+    "question": 6,
+    "kind": "question"
   },
   {
     "start": 240.02,
     "end": 241.06,
     "speaker": "friend",
-    "text": "완전 가능하지요"
+    "text": "완전 가능하지요",
+    "question": 6,
+    "kind": "talk"
   },
   {
     "start": 241.92,
     "end": 243.1,
     "speaker": "me",
-    "text": "어떻게 달라 보이나요?"
+    "text": "어떻게 달라 보이나요?",
+    "question": 7,
+    "kind": "question"
   },
   {
     "start": 244.8,
     "end": 247.2,
     "speaker": "friend",
-    "text": "기분 좋을 때는 진짜 생각이 없어 보이고"
+    "text": "기분 좋을 때는 진짜 생각이 없어 보이고",
+    "question": 7,
+    "kind": "talk"
   },
   {
     "start": 248.46,
     "end": 249.68,
     "speaker": "friend",
-    "text": "의성어도 많이 쓰고"
+    "text": "의성어도 많이 쓰고",
+    "question": 7,
+    "kind": "talk"
   },
   {
     "start": 251.98,
     "end": 254.36,
     "speaker": "friend",
-    "text": "생각 없어 보일 때가 가장 행복해 보이는데"
+    "text": "생각 없어 보일 때가 가장 행복해 보이는데",
+    "question": 7,
+    "kind": "talk"
   },
   {
     "start": 255.64,
     "end": 258.22,
     "speaker": "friend",
-    "text": "네가 제일 진지한 순간 매 순간 불행해 보여"
+    "text": "네가 제일 진지한 순간 매 순간 불행해 보여",
+    "question": 7,
+    "kind": "talk"
+  },
+  {
+    "start": 265.98,
+    "end": 268.04,
+    "speaker": "me",
+    "text": "불행하게 살아야 되는데",
+    "question": 7,
+    "kind": "talk"
   },
   {
     "start": 269.58,
     "end": 270.04,
     "speaker": "me",
-    "text": "어..."
+    "text": "어...",
+    "question": 7,
+    "kind": "talk"
   },
   {
     "start": 271.7,
     "end": 273.82,
     "speaker": "me",
-    "text": "내가 말로는 괜찮다고 했는데"
+    "text": "내가 말로는 괜찮다고 했는데",
+    "question": 8,
+    "kind": "question"
   },
   {
     "start": 274.7,
     "end": 276.88,
     "speaker": "me",
-    "text": "너가 봤을 때 아니었던 게 있어?"
+    "text": "너가 봤을 때 아니었던 게 있어?",
+    "question": 8,
+    "kind": "question"
   },
   {
     "start": 280.54,
     "end": 280.72,
     "speaker": "friend",
-    "text": "응"
+    "text": "응",
+    "question": 8,
+    "kind": "talk"
   },
   {
     "start": 280.72,
     "end": 281.24,
     "speaker": "me",
-    "text": "어?"
+    "text": "오?",
+    "question": 8,
+    "kind": "talk"
   },
   {
     "start": 282.04,
     "end": 287.3,
     "speaker": "friend",
-    "text": "고민이라고 털어놓을 때마다 해결이 안 된 거 같았는데?"
+    "text": "고민이라고 털어놓을 때마다 해결이 안 된 거 같았는데?",
+    "question": 8,
+    "kind": "talk"
   },
   {
     "start": 289.74,
     "end": 292.52,
     "speaker": "me",
-    "text": "아 해결 안 되는데 그냥 괜찮다고 하고"
+    "text": "아 해결 안 되는데 그냥 괜찮다고 하고",
+    "question": 8,
+    "kind": "talk"
   },
   {
     "start": 292.52,
     "end": 292.64,
-    "speaker": "me",
-    "text": "괜찮다"
+    "speaker": "friend",
+    "text": "괜찮다",
+    "question": 8,
+    "kind": "talk"
   },
   {
     "start": 294.38,
     "end": 295.96,
     "speaker": "friend",
-    "text": "그래서 그 말이 나온 거지"
+    "text": "그래서 그 말이 나온 거지",
+    "question": 8,
+    "kind": "talk"
   },
   {
     "start": 296.68,
     "end": 297.56,
     "speaker": "friend",
-    "text": "수렴이 안 된다고"
+    "text": "수렴이 안 된다고",
+    "question": 8,
+    "kind": "talk"
   },
   {
     "start": 298.04,
     "end": 301.16,
     "speaker": "friend",
-    "text": "괜찮다고 말하는 그 겉에 테두리가"
+    "text": "괜찮다고 말하는 그 겉에 테두리가",
+    "question": 8,
+    "kind": "talk"
   },
   {
     "start": 301.16,
     "end": 304.68,
     "speaker": "friend",
-    "text": "다 이런가? 이런가? 이런 말들이 있었고"
+    "text": "다 이런가? 이런가? 이런 말들이 있었고",
+    "question": 8,
+    "kind": "talk"
   },
   {
     "start": 304.68,
     "end": 306.44,
     "speaker": "friend",
-    "text": "결론이 그냥 괜찮다 이렇게"
+    "text": "결론이 그냥 괜찮다 이렇게",
+    "question": 8,
+    "kind": "talk"
   },
   {
     "start": 307.0,
     "end": 310.96,
-    "speaker": "friend",
-    "text": "아 그냥 오케 오케 그냥 뭉뚱거려서 그냥 뚝"
+    "speaker": "me",
+    "text": "아 그냥 오게 오게 그냥 뭉뚱거려서 그냥 뚝",
+    "question": 8,
+    "kind": "talk"
   },
   {
     "start": 310.96,
     "end": 313.02,
     "speaker": "friend",
-    "text": "괜찮아 이러고 다음"
+    "text": "괜찮아 이러고 다음",
+    "question": 8,
+    "kind": "talk"
   },
   {
     "start": 314.64,
     "end": 316.46,
-    "speaker": "friend",
-    "text": "다음으로 넘어가야 되니까"
+    "speaker": "me",
+    "text": "다음으로 넘어가야 되니까",
+    "question": 8,
+    "kind": "talk"
   },
   {
     "start": 317.0,
     "end": 317.4,
     "speaker": "me",
-    "text": "오케이"
+    "text": "오케이",
+    "question": 8,
+    "kind": "talk"
   },
   {
     "start": 319.0,
     "end": 324.66,
     "speaker": "me",
-    "text": "오 그러면 내가 스스로 과소평가하고 있는데"
+    "text": "오 그러면 내가 스스로 과소평가하고 있는데",
+    "question": 9,
+    "kind": "question"
   },
   {
     "start": 326.24,
     "end": 328.32,
     "speaker": "me",
-    "text": "장점인 것이 있나요?"
+    "text": "장점인 것이 있나요?",
+    "question": 9,
+    "kind": "question"
   },
   {
     "start": 328.98,
     "end": 329.86,
     "speaker": "friend",
-    "text": "과소평가하고"
+    "text": "과소평가하고",
+    "question": 9,
+    "kind": "talk"
   },
   {
     "start": 329.86,
     "end": 332.74,
     "speaker": "friend",
-    "text": "사람 잘 챙기는 거?"
+    "text": "사람 잘 챙기는 거?",
+    "question": 9,
+    "kind": "talk"
   },
   {
     "start": 333.3,
     "end": 334.84,
     "speaker": "friend",
-    "text": "사람 잘 챙기지"
+    "text": "사람 잘 챙기지",
+    "question": 9,
+    "kind": "talk"
   },
   {
     "start": 334.84,
     "end": 336.66,
     "speaker": "friend",
-    "text": "사람 마음 잘 알고"
+    "text": "사람 마음 잘 알고",
+    "question": 9,
+    "kind": "talk"
   },
   {
     "start": 339.04,
     "end": 341.46,
     "speaker": "friend",
-    "text": "배려하려고 하는 게 눈에 보이지"
+    "text": "배려하려고 하는 게 눈에 보이지",
+    "question": 9,
+    "kind": "talk"
   },
   {
     "start": 341.46,
     "end": 343.98,
     "speaker": "friend",
-    "text": "되는 사람인 걸"
+    "text": "되는 사람인 걸",
+    "question": 9,
+    "kind": "talk"
   },
   {
     "start": 343.98,
     "end": 345.12,
     "speaker": "friend",
-    "text": "네가 잘 모르는 거긴"
+    "text": "네가 잘 모르는 것 같긴 해",
+    "question": 9,
+    "kind": "talk"
   },
   {
     "start": 345.12,
     "end": 347.92,
     "speaker": "me",
-    "text": "그런 걸 언제 느끼셨나요?"
+    "text": "그런 걸 언제 느끼셨나요?",
+    "question": 10,
+    "kind": "question"
   },
   {
     "start": 349.74,
     "end": 350.56,
     "speaker": "friend",
-    "text": "나는"
+    "text": "나는",
+    "question": 10,
+    "kind": "talk"
   },
   {
     "start": 350.56,
     "end": 353.08,
     "speaker": "friend",
-    "text": "난 진짜 남한테 관심이 없어서"
+    "text": "난 진짜 남한테 관심이 없어서",
+    "question": 10,
+    "kind": "talk"
   },
   {
     "start": 353.08,
     "end": 354.48,
     "speaker": "friend",
-    "text": "저 사람의 감정보다는"
+    "text": "저 사람의 감정보다는",
+    "question": 10,
+    "kind": "talk"
   },
   {
     "start": 354.48,
     "end": 358.86,
     "speaker": "friend",
-    "text": "너보다는 내가 좀 더 저 사람 감정보다는 사실이 중요한 사람이잖아"
+    "text": "너보다는 내가 좀 더 저 사람 감정보다는 사실이 중요한 사람이잖아",
+    "question": 10,
+    "kind": "talk"
   },
   {
     "start": 358.86,
     "end": 363.74,
     "speaker": "friend",
-    "text": "근데 너가 가끔 내가 생각지도 못한 사람의 감정을 읽을 때"
+    "text": "근데 너가 가끔 내가 생각지도 못한 사람의 감정을 읽을 때",
+    "question": 10,
+    "kind": "talk"
   },
   {
     "start": 365.68,
     "end": 370.8,
     "speaker": "friend",
-    "text": "얘도 확실히 F구나 생각이 들지"
+    "text": "얘도 확실히 F구나 생각이 들지",
+    "question": 10,
+    "kind": "talk"
   },
   {
     "start": 375.0,
     "end": 380.98,
     "speaker": "me",
-    "text": "그러면 나랑 같이 있을 때 편한 점과 불편한 점이 있나요?"
+    "text": "그러면 나랑 같이 있을 때 편한 점과 불편한 점이 있나요?",
+    "question": 11,
+    "kind": "question"
   },
   {
     "start": 380.98,
     "end": 383.92,
     "speaker": "friend",
-    "text": "편한 점은 그냥 편하지"
+    "text": "편한 점은 그냥 편하지",
+    "question": 11,
+    "kind": "talk"
   },
   {
     "start": 383.92,
     "end": 385.66,
     "speaker": "friend",
-    "text": "그냥 바보같이 헛소리하고"
+    "text": "그냥 바보같이 헛소리하고",
+    "question": 11,
+    "kind": "talk"
   },
   {
     "start": 385.66,
     "end": 387.8,
     "speaker": "friend",
-    "text": "진짜 헛소리하고"
+    "text": "진짜 헛소리하고",
+    "question": 11,
+    "kind": "talk"
   },
   {
     "start": 387.8,
     "end": 390.98,
     "speaker": "friend",
-    "text": "말도 안 되는 거 얘기하면서 웃고"
+    "text": "말도 안 되는 거 얘기하면서 웃고",
+    "question": 11,
+    "kind": "talk"
   },
   {
     "start": 392.0,
     "end": 394.56,
     "speaker": "friend",
-    "text": "불편한 점? 불편한 점 없는데?"
+    "text": "불편한 점? 불편한 점 없는데?",
+    "question": 11,
+    "kind": "talk"
   },
   {
     "start": 394.74,
     "end": 396.76,
     "speaker": "friend",
-    "text": "많이 먹어야 됐던 거?"
+    "text": "많이 먹어야 됐던 거?",
+    "question": 11,
+    "kind": "talk"
   },
   {
     "start": 397.3,
     "end": 399.84,
     "speaker": "friend",
-    "text": "여러 번 여러 끼를 먹어야 됐던 거?"
+    "text": "여러 번 여러 끼를 먹어야 됐던 거?",
+    "question": 11,
+    "kind": "talk"
   },
   {
     "start": 400.72,
     "end": 402.24,
     "speaker": "friend",
-    "text": "나 배 안 고픈데"
+    "text": "나 배 안 고픈데",
+    "question": 11,
+    "kind": "talk"
   },
   {
     "start": 402.24,
     "end": 403.9,
     "speaker": "friend",
-    "text": "배고프다 그러고"
+    "text": "배고프다 그러고",
+    "question": 11,
+    "kind": "talk"
   },
   {
     "start": 403.9,
     "end": 405.38,
     "speaker": "me",
-    "text": "뭐야? 먹어준 거야 그럼?"
+    "text": "뭐야? 먹어준 거야 그럼?",
+    "question": 11,
+    "kind": "talk"
   },
   {
     "start": 405.8,
     "end": 407.72,
     "speaker": "friend",
-    "text": "아니지 근데 난 조금 먹어도 되니까"
+    "text": "아니지 근데 난 조금 먹어도 되니까",
+    "question": 11,
+    "kind": "talk"
   },
   {
     "start": 407.72,
     "end": 408.58,
     "speaker": "me",
-    "text": "우와"
+    "text": "우와",
+    "question": 11,
+    "kind": "talk"
   },
   {
     "start": 408.58,
     "end": 410.84,
     "speaker": "friend",
-    "text": "난 이것저것 맛봐서 좋았지"
+    "text": "난 이것저것 맛봐서 좋았지",
+    "question": 11,
+    "kind": "talk"
   },
   {
     "start": 410.84,
     "end": 412.12,
     "speaker": "me",
-    "text": "감동적이야"
+    "text": "감동적이야",
+    "question": 11,
+    "kind": "talk"
   },
   {
-    "start": 413.18,
-    "end": 414.86,
+    "start": 412.12,
+    "end": 413.46,
+    "speaker": "me",
+    "text": "몰랐어",
+    "question": 11,
+    "kind": "talk"
+  },
+  {
+    "start": 413.46,
+    "end": 414.88,
     "speaker": "friend",
-    "text": "어거지로 먹은건 아니고"
+    "text": "어거지로 먹은건 아니고",
+    "question": 11,
+    "kind": "talk"
   },
   {
     "start": 415.9,
     "end": 417.28,
     "speaker": "friend",
-    "text": "먹고싶어? 먹어?"
+    "text": "먹고싶어? 먹어?",
+    "question": 11,
+    "kind": "talk"
   },
   {
     "start": 418.22,
     "end": 419.24,
     "speaker": "me",
-    "text": "역시"
+    "text": "역시",
+    "question": 11,
+    "kind": "talk"
   },
   {
     "start": 420.58,
     "end": 421.34,
     "speaker": "me",
-    "text": "승평이를 키운"
+    "text": "승평이를 키운",
+    "question": 11,
+    "kind": "talk"
   },
   {
     "start": 426.52,
     "end": 428.56,
     "speaker": "me",
-    "text": "그러면 마지막입니다"
+    "text": "그러면 마지막입니다",
+    "question": 12,
+    "kind": "question"
   },
   {
     "start": 429.6,
     "end": 432.52,
     "speaker": "me",
-    "text": "누군가에게 나를 한 문장으로 소개한다면"
+    "text": "누군가에게 나를 한 문장으로 소개한다면",
+    "question": 12,
+    "kind": "question"
   },
   {
     "start": 432.52,
     "end": 434.4,
     "speaker": "me",
-    "text": "뭐라고 하실 것 같은가요?"
+    "text": "뭐라고 하실 것 같은가요?",
+    "question": 12,
+    "kind": "question"
   },
   {
     "start": 435.22,
     "end": 435.8,
     "speaker": "friend",
-    "text": "한 문장?"
+    "text": "한 문장?",
+    "question": 12,
+    "kind": "talk"
   },
   {
     "start": 435.8,
     "end": 439.96,
     "speaker": "me",
-    "text": "한 문장이 아니어도 그냥 주르륵 말해도 상관없을 것 같아"
+    "text": "한 문장이 아니어도 그냥 주르륵 말해도 상관없을 것 같아",
+    "question": 12,
+    "kind": "talk"
   },
   {
     "start": 442.52,
     "end": 445.78,
     "speaker": "friend",
-    "text": "착해 보이지만 생각보다 착하지 않고요"
+    "text": "착해 보이지만 생각보다 착하지 않고요",
+    "question": 12,
+    "kind": "talk"
   },
   {
     "start": 447.4,
     "end": 450.84,
     "speaker": "friend",
-    "text": "가끔 말에 가시가 있는 것 같지만"
+    "text": "가끔 말에 가시가 있는 것 같지만",
+    "question": 12,
+    "kind": "talk"
   },
   {
     "start": 451.88,
     "end": 453.58,
     "speaker": "friend",
-    "text": "감정이 들어간 게 아닌"
+    "text": "감정이 들어간 게 아닌",
+    "question": 12,
+    "kind": "talk"
   },
   {
     "start": 453.58,
     "end": 455.88,
     "speaker": "friend",
-    "text": "진짜 사실만을 묻는 말들이니"
+    "text": "진짜 사실만을 묻는 말들이니",
+    "question": 12,
+    "kind": "talk"
   },
   {
     "start": 455.88,
     "end": 457.62,
     "speaker": "friend",
-    "text": "상처받지 마시고"
+    "text": "상처받지 마시고",
+    "question": 12,
+    "kind": "talk"
   },
   {
     "start": 457.62,
     "end": 461.26,
     "speaker": "friend",
-    "text": "그냥 궁금한가 보다 하고 대답해 주시면 감사하겠습니다"
+    "text": "그냥 궁금한가 보다 하고 대답해 주시면 감사하겠습니다",
+    "question": 12,
+    "kind": "talk"
   },
   {
     "start": 461.26,
     "end": 464.34,
     "speaker": "friend",
-    "text": "진심으로 잘 부탁드립니다"
+    "text": "진심으로 잘 부탁드립니다",
+    "question": 12,
+    "kind": "talk"
   },
   {
     "start": 465.8,
     "end": 467.18,
     "speaker": "friend",
-    "text": "제 친한 친구예요"
+    "text": "제 친한 친구예요",
+    "question": 12,
+    "kind": "talk"
   },
   {
     "start": 467.18,
     "end": 471.22,
     "speaker": "me",
-    "text": "좀 감동적이야"
+    "text": "오 좀 감동적이야",
+    "question": 12,
+    "kind": "talk"
   },
   {
     "start": 471.8,
     "end": 476.8,
-    "speaker": "friend",
-    "text": "이런 말을 할 기회가 없었긴 했네"
+    "speaker": "me",
+    "text": "이런 말을 할 기회가 없었긴 했네..",
+    "question": 12,
+    "kind": "talk"
   },
   {
     "start": 477.68,
     "end": 479.98,
     "speaker": "me",
-    "text": "오! 날 그렇게 생각했다니"
+    "text": "오 날 그렇게 생각했다니!",
+    "question": 12,
+    "kind": "talk"
   },
   {
     "start": 480.8,
     "end": 481.88,
-    "speaker": "me",
-    "text": "좋게 생각한 거 아니야?"
+    "speaker": "friend",
+    "text": "좋게 생각한 거 아니야?",
+    "question": 12,
+    "kind": "talk"
   },
   {
     "start": 482.56,
     "end": 483.7,
-    "speaker": "friend",
-    "text": "완전 좋게 생각했지"
+    "speaker": "me",
+    "text": "완전 좋게 생각했지",
+    "question": 12,
+    "kind": "talk"
+  },
+  {
+    "start": 485.98,
+    "end": 487.54,
+    "speaker": "me",
+    "text": "그럼 이만 마칠까요?",
+    "question": 12,
+    "kind": "talk"
+  },
+  {
+    "start": 487.78,
+    "end": 489.48,
+    "speaker": "me",
+    "text": "하나 둘 셋 짝!",
+    "question": 12,
+    "kind": "talk"
   }
 ]
