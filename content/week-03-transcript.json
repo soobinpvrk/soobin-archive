@@ -349,7 +349,7 @@
     "speaker": "me",
     "text": "저한테 똑똑하다고 처음 말하셨어요",
     "question": 4,
-    "kind": "question"
+    "kind": "talk"
   },
   {
     "start": 119.22,
@@ -429,7 +429,7 @@
     "speaker": "me",
     "text": "그러면 아 이것도 살짝 어려울 수 있어",
     "question": 5,
-    "kind": "question"
+    "kind": "talk"
   },
   {
     "start": 150.48,
@@ -1157,7 +1157,7 @@
     "speaker": "me",
     "text": "그러면 마지막입니다",
     "question": 12,
-    "kind": "question"
+    "kind": "talk"
   },
   {
     "start": 429.6,

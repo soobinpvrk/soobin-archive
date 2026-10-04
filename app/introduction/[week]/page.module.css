@@ -83,6 +83,11 @@ a.tocItem:focus-visible {
   margin-bottom: 0;
 }
 
+/* 본문 중간의 소제목은 2주차 소설 제목(.storyBody)과 같은 간격을 둔다. */
+.body > * + h2 {
+  margin-top: clamp(56px, 6vw, 72px);
+}
+
 /* 소설도 인터뷰의 첫 질문과 같은 위치에서 시작한다. */
 .storyBody {
   margin-top: clamp(56px, 6vw, 72px);
@@ -110,7 +115,8 @@ a.tocItem:focus-visible {
     padding-left: 0;
   }
 
-  .storyBody {
+  .storyBody,
+  .body > * + h2 {
     margin-top: 48px;
   }
 

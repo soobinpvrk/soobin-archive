@@ -218,8 +218,12 @@ export function InterviewPlayer() {
     }
   };
 
+  // 묶음이 도입 발화(talk)로 시작하면 첫 질문 줄이 나올 때까지 직전 질문을 남겨 둔다.
+  const lastQuestionLine = lastStarted(QUESTION_LINES, time);
+  const shownQuestion =
+    lastQuestionLine === -1 ? -1 : QUESTION_LINES[lastQuestionLine].question;
   const questionText = QUESTION_LINES.filter(
-    (s) => s.question === current && s.start <= time,
+    (s) => s.question === shownQuestion && s.start <= time,
   )
     .map((s) => s.text)
     .join(" ");
