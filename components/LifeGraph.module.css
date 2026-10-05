@@ -1,94 +1,170 @@
 .root {
-  --card: 136px;
-  --gap: 40px;
-  --edge: rgba(255, 255, 255, 0.72);
+  container-type: inline-size;
   margin: 2.4em 0;
   display: flex;
   flex-direction: column;
-  gap: 1.6em;
+  gap: 1.4em;
 }
 
-/* ---- 가로 타임라인: 배열 순서대로 왼쪽→오른쪽 등간격 ---- */
+/* ---- 가로 그래프: 기준선 위에 노드, 라벨은 위아래로 번갈아 ---- */
 
-.track {
-  display: flex;
-  gap: var(--gap);
-  margin: 0;
-  padding: 4px 4px 16px;
-  list-style: none;
-  overflow-x: auto;
-  scrollbar-width: thin;
-  scrollbar-color: #3a3a3a transparent;
-}
-
-.track::-webkit-scrollbar {
-  height: 4px;
-}
-
-.track::-webkit-scrollbar-thumb {
-  background: #3a3a3a;
-  border-radius: 2px;
-}
-
-.item {
+.graph {
+  --line-y: 50%;
+  --stem: 12px;
+  --gap-to-label: 4px;
   position: relative;
-  display: flex;
-  flex: 0 0 var(--card);
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
+  height: 280px;
 }
 
-/* 다음 노드까지 이어지는 1px 선. 카드 세로 가운데에서 출발한다. */
-.item:not(:last-child)::after {
-  content: "";
+.segment {
   position: absolute;
-  top: calc(var(--card) / 2);
-  left: 100%;
-  width: var(--gap);
-  height: 1px;
-  background: var(--edge);
+  top: var(--line-y);
+  height: 0;
+  border-top: 1px solid var(--color-text);
 }
 
-.card {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--card);
-  aspect-ratio: 1 / 1;
-  padding: 12px;
-  border: 1px solid var(--edge);
-  border-radius: 6px;
-  background: var(--color-bg);
+.segmentDashed {
+  border-top-style: dashed;
+}
+
+.nodes {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nodeItem {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--x);
+}
+
+/* 버튼 상자는 이웃과 겹치므로 클릭은 노드·라벨에서만 받는다. */
+.node {
+  --mark-half: 5px;
+  --anchor: 50%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 9em;
+  padding: 0;
+  border: none;
+  background: none;
   color: var(--color-text);
   font-family: var(--font-body);
-  font-size: 0.82rem;
-  font-weight: 600;
-  line-height: 1.4;
+  font-size: 13px;
+  line-height: 1.35;
   text-align: center;
-  word-break: keep-all;
   cursor: pointer;
-  transition: background-color 150ms ease;
+  pointer-events: none;
+  transform: translateX(-50%);
 }
 
-.card:hover,
-.card:focus-visible,
-.card[aria-expanded="true"] {
-  background: rgba(255, 255, 255, 0.08);
+.node > * {
+  pointer-events: auto;
 }
 
-.card:focus-visible {
-  outline: 2px solid var(--color-text);
-  outline-offset: 3px;
+/* 양 끝 라벨은 그래프 밖으로 나가지 않게 안쪽으로 붙인다. */
+.first {
+  --anchor: 0%;
+  text-align: left;
+  transform: none;
 }
 
-.cardOngoing {
-  border-style: dashed;
+.last {
+  --anchor: 100%;
+  text-align: right;
+  transform: translateX(-100%);
 }
 
-/* 시작과 지금은 상태와 관계없이 굵은 실선. */
-.cardEdge {
-  border: 2px solid var(--color-text);
+/* 양 끝 라벨은 한쪽으로만 뻗으므로, 두 칸 옆 라벨의 최대 반폭(4.5em)을 비켜 간다. */
+.first .label,
+.last .label {
+  max-width: min(9em, calc(100cqw * 2 / 11 - 4.5em - 6px));
+}
+
+.marker {
+  position: absolute;
+  top: var(--line-y);
+  left: var(--anchor);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-text);
+  transform: translate(-50%, -50%);
+  transition: transform 150ms ease;
+}
+
+.ongoing .marker,
+.legendMark.ongoing {
+  border: 1.5px solid var(--color-text);
+  background: var(--color-bg);
+}
+
+.edge {
+  --mark-half: 7px;
+}
+
+.edge .marker {
+  width: 14px;
+  height: 14px;
+  border-radius: 0;
+}
+
+.stem {
+  position: absolute;
+  left: var(--anchor);
+  width: 1px;
+  height: var(--stem);
+  background: var(--color-text-dim);
+}
+
+.above .stem {
+  bottom: calc(100% - var(--line-y) + var(--mark-half));
+}
+
+.below .stem {
+  top: calc(var(--line-y) + var(--mark-half));
+}
+
+/* 라벨 상자는 글자 폭에 맞춘다(최대 9em). 가운데 노드는 가운데 정렬, 양 끝은 안쪽으로. */
+.label {
+  position: absolute;
+  left: var(--anchor);
+  width: max-content;
+  /* 같은 쪽 이웃 라벨은 두 칸(2/11) 떨어져 있다. 좁은 폭에서도 8px 이상 벌어지게. */
+  max-width: min(9em, calc(100cqw * 2 / 11 - 8px));
+  transform: translateX(calc(var(--anchor) * -1));
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.above .label {
+  bottom: calc(100% - var(--line-y) + var(--mark-half) + var(--stem) + var(--gap-to-label));
+  /* 위쪽 라벨은 연도·나이가 라벨 위에 온다. */
+  flex-direction: column-reverse;
+}
+
+.below .label {
+  top: calc(var(--line-y) + var(--mark-half) + var(--stem) + var(--gap-to-label));
+}
+
+.title {
+  color: var(--color-text);
+  transition: color 150ms ease;
+}
+
+.ongoing .title {
+  color: var(--color-text-dim);
+}
+
+.edge .title {
+  font-weight: 700;
 }
 
 .meta {
@@ -96,6 +172,25 @@
   font-size: 11px;
   font-variant-numeric: tabular-nums;
   color: var(--color-text-dim);
+}
+
+.node:hover .title,
+.node:focus-visible .title {
+  color: var(--color-text);
+}
+
+.node:hover .marker,
+.node:focus-visible .marker {
+  transform: translate(-50%, -50%) scale(1.3);
+}
+
+.node:focus-visible {
+  outline: none;
+}
+
+.node:focus-visible .label {
+  outline: 1px solid var(--color-text-dim);
+  outline-offset: 3px;
 }
 
 /* ---- 범례 ---- */
@@ -107,64 +202,100 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  font-size: 0.8rem;
+  font-size: 12px;
   color: var(--color-text-dim);
 }
 
 .legend li {
   display: flex;
   align-items: center;
-  gap: 0.6em;
+  gap: 0.5em;
 }
 
-.legendSolid,
-.legendDashed {
-  width: 16px;
-  height: 16px;
-  border: 1px solid var(--edge);
-  border-radius: 3px;
+.legendMark {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-text);
 }
 
-.legendDashed {
-  border-style: dashed;
-}
+/* ---- 본문 폭 640px 미만: 세로 그래프 ---- */
 
-/* ---- 모바일: 세로 타임라인 ---- */
-
-@media (max-width: 860px) {
-  .root {
-    --gap: 28px;
+@container (max-width: 639px) {
+  .graph {
+    height: auto;
   }
 
-  .track {
+  .segment,
+  .stem {
+    display: none;
+  }
+
+  .nodes {
+    display: flex;
     flex-direction: column;
-    padding: 0;
-    overflow: visible;
+    gap: 10px;
   }
 
-  .item {
-    flex: none;
-    align-items: stretch;
+  .nodeItem {
+    position: static;
   }
 
-  /* 카드(와 연도) 아래에서 다음 카드 위까지 세로로 잇는다. */
-  .item:not(:last-child)::after {
-    top: 100%;
-    left: 50%;
-    width: 1px;
-    height: var(--gap);
-  }
-
-  .card {
+  .node,
+  .first,
+  .last {
+    --row-mid: 9px;
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: 24px minmax(0, 1fr);
+    align-items: start;
     width: 100%;
-    aspect-ratio: auto;
-    min-height: 72px;
-    padding: 16px 20px;
-    font-size: 0.95rem;
+    text-align: left;
+    pointer-events: auto;
+    transform: none;
   }
 
-  .meta {
-    text-align: center;
+  .marker {
+    position: relative;
+    top: auto;
+    left: 12px;
+    margin-top: var(--row-mid);
+    transform: translate(-50%, -50%);
+  }
+
+  .node:hover .marker,
+  .node:focus-visible .marker {
+    transform: translate(-50%, -50%) scale(1.3);
+  }
+
+  .label,
+  .above .label,
+  .below .label {
+    position: static;
+    width: auto;
+    max-width: none;
+    flex-direction: column;
+    transform: none;
+  }
+
+  /* 다음 노드까지 이어지는 세로 선분. 다음이 ongoing이면 점선. */
+  .node::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: var(--row-mid);
+    left: 12px;
+    height: calc(100% + 10px);
+    border-left: 1px solid var(--color-text);
+  }
+
+  .toOngoing::after {
+    border-left-style: dashed;
+  }
+
+  .last::after {
+    content: none;
   }
 }
 
@@ -231,7 +362,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card {
+  .marker,
+  .title {
     transition: none;
   }
 }
