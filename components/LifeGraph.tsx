@@ -2,16 +2,27 @@
 
 import Image from "next/image";
 import { type CSSProperties, useEffect, useRef, useState } from "react";
-import { lifeGraphData, type LifeNode } from "@/content/life-graph";
+import {
+  type DesireStatus,
+  lifeGraphData,
+  type LifeNode,
+} from "@/content/life-graph";
 import styles from "./LifeGraph.module.css";
 
 const EMPTY_TEXT = "아직 적지 않았다.";
 const LAST = lifeGraphData.length - 1;
 
+const STATUS_LABEL: Record<DesireStatus, string> = {
+  fulfilled: "충족된 것",
+  unfulfilled: "충족되지 않은 것",
+  released: "충족할 필요가 없어진 것",
+};
+
+const LEGEND: DesireStatus[] = ["fulfilled", "unfulfilled", "released"];
+
 function statusLabel(node: LifeNode) {
-  if (node.kind === "start") return "시작";
-  if (node.kind === "end") return "지금";
-  return node.status === "past" ? "지나간 욕망" : "지금도 이어지는 욕망";
+  if (node.kind !== "desire") return node.kind === "start" ? "시작" : "지금";
+  return STATUS_LABEL[node.status];
 }
 
 /* "2009 · 14세". 둘 다 없으면 null. */
@@ -25,18 +36,13 @@ function formatMeta(node: LifeNode) {
 
 function nodeClassName(node: LifeNode, index: number) {
   const tone =
-    node.kind !== "desire"
-      ? styles.edge
-      : node.status === "ongoing"
-        ? styles.ongoing
-        : styles.past;
+    node.kind === "desire"
+      ? `${styles.desire} ${styles[node.status]}`
+      : styles.edge;
   const side = index % 2 === 0 ? styles.above : styles.below;
   const anchor =
     index === 0 ? styles.first : index === LAST ? styles.last : "";
-  // 다음 노드가 ongoing이면 그쪽으로 가는 선분이 점선이다(세로 그래프용).
-  const next = lifeGraphData[index + 1];
-  const nextOngoing = next?.status === "ongoing" ? styles.toOngoing : "";
-  return [styles.node, tone, side, anchor, nextOngoing].filter(Boolean).join(" ");
+  return [styles.node, tone, side, anchor].filter(Boolean).join(" ");
 }
 
 type PositionStyle = CSSProperties & { "--x": string };
@@ -94,17 +100,16 @@ export function LifeGraph() {
   return (
     <section className={styles.root} aria-label="인생그래프">
       <div className={styles.graph}>
-        {/* 가로 기준선. ongoing 노드로 이어지는 구간만 점선. */}
-        {lifeGraphData.slice(1).map((node, i) => (
+        {/* 가로 기준선. 상태는 점이 말하므로 선은 한 가지로 두고,
+            빈 점 안으로 선이 지나가지 않게 노드 앞뒤에서 끊는다. */}
+        {lifeGraphData.slice(1).map((_, i) => (
           <span
             key={`segment-${i}`}
             aria-hidden="true"
-            className={`${styles.segment} ${
-              node.status === "ongoing" ? styles.segmentDashed : ""
-            }`}
+            className={styles.segment}
             style={{
-              left: `${(i / LAST) * 100}%`,
-              width: `${100 / LAST}%`,
+              left: `calc(${(i / LAST) * 100}% + var(--node-clear))`,
+              width: `calc(${100 / LAST}% - 2 * var(--node-clear))`,
             }}
           />
         ))}
@@ -127,7 +132,12 @@ export function LifeGraph() {
                   onClick={(e) => openModal(index, e.currentTarget)}
                   onKeyDown={(e) => onNodeKeyDown(e, index)}
                 >
-                  <span className={styles.marker} aria-hidden="true" />
+                  <span
+                    className={`${styles.marker} ${
+                      node.kind === "desire" ? styles.dot : ""
+                    }`}
+                    aria-hidden="true"
+                  />
                   <span className={styles.stem} aria-hidden="true" />
                   <span className={styles.label}>
                     <span className={styles.title}>{node.title}</span>
@@ -141,14 +151,12 @@ export function LifeGraph() {
       </div>
 
       <ul className={styles.legend} aria-label="범례">
-        <li>
-          <span className={`${styles.legendMark} ${styles.past}`} aria-hidden="true" />
-          지나간 욕망
-        </li>
-        <li>
-          <span className={`${styles.legendMark} ${styles.ongoing}`} aria-hidden="true" />
-          지금도 이어지는 욕망
-        </li>
+        {LEGEND.map((status) => (
+          <li key={status} className={styles[status]}>
+            <span className={styles.dot} aria-hidden="true" />
+            {STATUS_LABEL[status]}
+          </li>
+        ))}
       </ul>
 
       {openNode ? (

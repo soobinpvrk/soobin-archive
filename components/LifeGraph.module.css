@@ -10,6 +10,10 @@
 
 .graph {
   --line-y: 50%;
+  /* 선은 상태를 말하지 않는다. 모든 연결선은 이 한 가지. */
+  --line: #2e2e2e;
+  /* 선분이 노드 중심에서 이만큼 떨어져 끝난다(가장 큰 마커 반폭 + 3px). */
+  --node-clear: 10px;
   --stem: 12px;
   --gap-to-label: 4px;
   position: relative;
@@ -19,12 +23,8 @@
 .segment {
   position: absolute;
   top: var(--line-y);
-  height: 0;
-  border-top: 1px solid var(--color-text);
-}
-
-.segmentDashed {
-  border-top-style: dashed;
+  height: 1px;
+  background: var(--line);
 }
 
 .nodes {
@@ -89,28 +89,43 @@
   position: absolute;
   top: var(--line-y);
   left: var(--anchor);
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--color-text);
   transform: translate(-50%, -50%);
   transition: transform 150ms ease;
 }
 
-.ongoing .marker,
-.legendMark.ongoing {
-  border: 1.5px solid var(--color-text);
-  background: var(--color-bg);
+/* 점은 그릇, 채움은 충족. 13px보다 작으면 dashed가 뭉개져 solid와 구분되지 않는다. */
+.dot {
+  display: block;
+  box-sizing: border-box;
+  width: 13px;
+  height: 13px;
+  border: 1.5px solid #e6e6e6;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.fulfilled .dot {
+  background: #e6e6e6;
+}
+
+/* 채울 그릇의 윤곽 자체가 풀린 상태. */
+.released .dot {
+  border: 1.5px dashed #6e6e6e;
+}
+
+.desire {
+  --mark-half: 6.5px;
 }
 
 .edge {
   --mark-half: 7px;
 }
 
+/* 출생과 지금: 구간의 양끝이라 상태 없이 사각형. */
 .edge .marker {
   width: 14px;
   height: 14px;
-  border-radius: 0;
+  background: var(--color-text);
 }
 
 .stem {
@@ -118,7 +133,7 @@
   left: var(--anchor);
   width: 1px;
   height: var(--stem);
-  background: var(--color-text-dim);
+  background: var(--line);
 }
 
 .above .stem {
@@ -155,12 +170,13 @@
 }
 
 .title {
-  color: var(--color-text);
+  color: #e6e6e6;
   transition: color 150ms ease;
 }
 
-.ongoing .title {
-  color: var(--color-text-dim);
+/* 해소된 것만 물러난다. */
+.released .title {
+  color: #6e6e6e;
 }
 
 .edge .title {
@@ -197,8 +213,8 @@
 
 .legend {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.6em 1.6em;
+  flex-direction: column;
+  gap: 0.5em;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -209,14 +225,7 @@
 .legend li {
   display: flex;
   align-items: center;
-  gap: 0.5em;
-}
-
-.legendMark {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--color-text);
+  gap: 0.6em;
 }
 
 /* ---- 본문 폭 640px 미만: 세로 그래프 ---- */
@@ -279,19 +288,16 @@
     transform: none;
   }
 
-  /* 다음 노드까지 이어지는 세로 선분. 다음이 ongoing이면 점선. */
+  /* 다음 노드까지 이어지는 세로 선분. 빈 점 안으로 들어가지 않게 앞뒤를 끊는다. */
   .node::after {
     content: "";
     position: absolute;
     z-index: -1;
-    top: var(--row-mid);
+    top: calc(var(--row-mid) + var(--node-clear));
     left: 12px;
-    height: calc(100% + 10px);
-    border-left: 1px solid var(--color-text);
-  }
-
-  .toOngoing::after {
-    border-left-style: dashed;
+    width: 1px;
+    height: calc(100% + 10px - 2 * var(--node-clear));
+    background: var(--line);
   }
 
   .last::after {
