@@ -1,0 +1,47 @@
+.page {
+  width: 100%;
+  padding: 40px clamp(var(--gutter), 4vw, 64px) 120px;
+}
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5em;
+  margin-bottom: 72px;
+  font-family: var(--font-display);
+  font-size: 1.05em;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+/* globals.css의 전역 a:hover 반전을 끄고 글자 색만 바꾼다. */
+.breadcrumb a {
+  color: var(--color-text-dim);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.breadcrumb a:hover,
+.breadcrumb a:focus-visible {
+  background: none;
+  color: var(--color-text);
+}
+
+.breadcrumb a[aria-current="page"] {
+  color: var(--color-text);
+}
+
+.separator {
+  color: #454545;
+}
+
+@media (max-width: 860px) {
+  .page {
+    padding-top: 28px;
+  }
+
+  .breadcrumb {
+    margin-bottom: 48px;
+  }
+}

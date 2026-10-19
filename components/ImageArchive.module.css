@@ -1,0 +1,367 @@
+/* ── 정보 영역: Info / About(2칸) / View ── */
+.info {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: clamp(24px, 3vw, 48px);
+  row-gap: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+  margin-bottom: 72px;
+  font-size: 0.9em;
+  line-height: 1.5;
+}
+
+.infoColumn {
+  min-width: 0;
+}
+
+.about {
+  grid-column: span 2;
+}
+
+.infoLabel {
+  margin-bottom: 12px;
+  font-family: var(--font-display);
+  font-size: 1em;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.meta {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  column-gap: 24px;
+  row-gap: 2px;
+}
+
+.meta dt {
+  color: var(--color-text-dim);
+}
+
+.meta dd {
+  font-variant-numeric: tabular-nums;
+}
+
+.aboutText {
+  max-width: 34em;
+  color: var(--color-text-dim);
+}
+
+.toggle {
+  display: flex;
+  gap: 16px;
+}
+
+.toggleButton {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--color-text-dim);
+  font: inherit;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.toggleButton:hover,
+.toggleButton[aria-pressed="true"] {
+  color: var(--color-text);
+}
+
+.toggleButton[aria-pressed="true"] {
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+/* ── 그리드 ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  column-gap: clamp(16px, 2.4vw, 40px);
+  row-gap: clamp(32px, 4vw, 64px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cell {
+  min-width: 0;
+}
+
+.cellButton {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.square {
+  position: relative;
+  display: block;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  overflow: hidden;
+}
+
+.image {
+  object-fit: contain;
+}
+
+.placeholder {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background: #262626;
+}
+
+.cellButton:hover .placeholder,
+.cellButton:focus-visible .placeholder {
+  background: #303030;
+}
+
+.cellButton:focus-visible {
+  outline: 1px solid var(--color-text);
+  outline-offset: 6px;
+}
+
+.cellTitle {
+  display: block;
+  margin-top: 10px;
+  overflow: hidden;
+  font-size: 0.85em;
+  line-height: 1.4;
+  color: var(--color-text-dim);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color 0.15s ease;
+}
+
+.cellButton:hover .cellTitle {
+  color: var(--color-text);
+}
+
+.dropzone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  border: 1px dashed #4a4a4a;
+  color: var(--color-text-dim);
+  font-size: 0.85em;
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* ── 테이블 ── */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9em;
+  line-height: 1.4;
+}
+
+.table th {
+  padding: 0 0 10px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-align: left;
+  color: var(--color-text-dim);
+}
+
+.table td {
+  padding: 12px 0;
+  border-top: 1px solid var(--color-border);
+  vertical-align: middle;
+}
+
+.table tbody tr {
+  cursor: pointer;
+}
+
+.table tbody tr:hover .rowButton {
+  color: var(--color-text);
+}
+
+.thumbCol {
+  width: 80px;
+}
+
+.dateCol {
+  width: 9em;
+  color: var(--color-text-dim);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.table th.dateCol {
+  text-align: right;
+}
+
+.tableThumb {
+  position: relative;
+  display: block;
+  width: 56px;
+  height: 56px;
+  overflow: hidden;
+}
+
+.rowButton {
+  padding: 0;
+  border: none;
+  background: none;
+  color: #c8c8c8;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ── 상세 보기 ── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+  background: var(--color-bg);
+}
+
+.controls {
+  position: absolute;
+  top: 20px;
+  right: clamp(var(--gutter), 3vw, 40px);
+  z-index: 1;
+  display: flex;
+  gap: 8px;
+}
+
+.control {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+  font-size: 1.05em;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.control:hover,
+.control:focus-visible {
+  border-color: var(--color-text);
+  outline: none;
+}
+
+.stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: clamp(32px, 5vw, 80px);
+}
+
+.stageFrame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.panel {
+  min-width: 0;
+  padding: 96px clamp(var(--gutter), 3vw, 40px) 40px 0;
+  overflow-y: auto;
+  font-size: 0.9em;
+  line-height: 1.55;
+}
+
+.panelTitle {
+  margin-bottom: 4px;
+  font-size: 1.25em;
+  font-weight: 700;
+  word-break: keep-all;
+}
+
+.panelDate {
+  margin: 0 0 24px;
+  color: var(--color-text-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.panelDescription {
+  margin: 0;
+  white-space: pre-line;
+}
+
+.panelMeta {
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .info {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .about {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+
+@media (max-width: 860px) {
+  /* 모바일 상세: 이미지 위, 정보 아래로 세로로 쌓고 전체를 스크롤한다. */
+  .overlay {
+    display: block;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .controls {
+    position: sticky;
+    top: 0;
+    justify-content: flex-end;
+    padding: 12px var(--gutter);
+    background: var(--color-bg);
+  }
+
+  .stage {
+    height: 62vh;
+    height: 62svh;
+    padding: 8px var(--gutter) 24px;
+  }
+
+  .panel {
+    padding: 0 var(--gutter) 48px;
+    overflow: visible;
+  }
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .info {
+    margin-bottom: 48px;
+  }
+}

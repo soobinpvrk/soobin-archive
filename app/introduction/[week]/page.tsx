@@ -10,8 +10,13 @@ import { RotatingHomeButton } from "@/components/RotatingHomeButton";
 import { SectionTitle, headingClassName } from "@/components/SectionTitle";
 import styles from "./page.module.css";
 
+/* 전용 페이지가 있는 주차는 app/introduction/<번호>/page.tsx가 맡는다. */
+const DEDICATED_WEEKS = new Set([5]);
+
 export function generateStaticParams() {
-  return getAllWeeks().map((w) => ({ week: String(w.week) }));
+  return getAllWeeks()
+    .filter((w) => !DEDICATED_WEEKS.has(w.week))
+    .map((w) => ({ week: String(w.week) }));
 }
 
 export default async function WeekPage({
