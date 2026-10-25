@@ -20,6 +20,8 @@ export type Magazine = {
   pageHeight: number;
   /** 이미지가 있는 public 경로. 끝에 슬래시를 붙이지 않는다. */
   pagesPath: string;
+  /** 인쇄본에 찍힌 쪽 번호 = 이미지 순서 + folioOffset */
+  folioOffset: number;
   chapters: MagazineChapter[];
 };
 
@@ -31,6 +33,7 @@ export const EXPLORATION: Magazine = {
   pageWidth: 996,
   pageHeight: 1585,
   pagesPath: "/magazine/exploration",
+  folioOffset: 1,
   chapters: [
     { number: "", title: "표지", page: 1 },
     { number: "", title: "들어가며", page: 2 },
@@ -43,6 +46,12 @@ export const EXPLORATION: Magazine = {
     { number: "", title: "대화를 마치며", page: 53 },
   ],
 };
+
+/* 인쇄본 쪽 번호. 앞·뒤표지는 번호가 없어 null */
+export function magazineFolio(magazine: Magazine, page: number) {
+  if (page <= 1 || page >= magazine.pageCount) return null;
+  return page + magazine.folioOffset;
+}
 
 export function magazinePageSrc(magazine: Magazine, page: number) {
   return `${magazine.pagesPath}/p${String(page).padStart(2, "0")}.webp`;

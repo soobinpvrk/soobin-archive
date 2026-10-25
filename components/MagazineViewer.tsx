@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Magazine } from "@/data/magazine";
-import { magazinePageSrc } from "@/data/magazine";
+import { magazineFolio, magazinePageSrc } from "@/data/magazine";
 import type { MagazineScene, ViewerState } from "@/lib/magazineScene";
 import styles from "./MagazineViewer.module.css";
 
@@ -24,8 +24,18 @@ function visiblePages(state: ViewerState, pageCount: number): number[] {
   return [2 * f, 2 * f + 1];
 }
 
-function pageLabel(pages: number[]) {
-  return pages.length > 1 ? `${pages[0]}–${pages[1]}` : String(pages[0]);
+/* 인쇄본 쪽 번호로 쓴 표시. 번호가 없는 앞·뒤표지는 이름으로 쓴다. */
+function pageLabel(magazine: Magazine, pages: number[]) {
+  const folios = pages.map((p) => magazineFolio(magazine, p));
+  if (folios.every((f) => f === null)) {
+    return pages[0] <= 1 ? "표지" : "뒤표지";
+  }
+  return folios.filter((f) => f !== null).join("–");
+}
+
+/* 숫자로 끝나면 '쪽'을 붙여 읽는다 */
+function spokenLabel(label: string) {
+  return /\d$/.test(label) ? `${label}쪽` : label;
 }
 
 export function MagazineViewer({ magazine }: Props) {
@@ -196,7 +206,8 @@ export function MagazineViewer({ magazine }: Props) {
     (acc, c, i) => (c.page <= pages[pages.length - 1] ? i : acc),
     0,
   );
-  const label = scrub !== null ? String(scrub) : pageLabel(pages);
+  const label = pageLabel(magazine, scrub !== null ? [scrub] : pages);
+  const lastFolio = magazineFolio(magazine, P - 1);
 
   if (noGl) {
     return (
@@ -234,7 +245,7 @@ export function MagazineViewer({ magazine }: Props) {
           onPointerUp={onPointerUp}
           onPointerCancel={onPointerUp}
           onPointerLeave={() => setHover(null)}
-          aria-label={`${magazine.title} 매거진. ${label}쪽`}
+          aria-label={`${magazine.title} 매거진. ${spokenLabel(label)}`}
           role="img"
         />
 
@@ -270,7 +281,7 @@ export function MagazineViewer({ magazine }: Props) {
                   >
                     <span className={styles.tocNumber}>{c.number}</span>
                     <span className={styles.tocTitle}>{c.title}</span>
-                    <span className={styles.tocPage}>{c.page}</span>
+                    <span className={styles.tocPage}>{magazineFolio(magazine, c.page)}</span>
                   </button>
                 </li>
               ))}
@@ -289,7 +300,7 @@ export function MagazineViewer({ magazine }: Props) {
           aria-valuemin={1}
           aria-valuemax={P}
           aria-valuenow={shownPage}
-          aria-valuetext={`${label}쪽`}
+          aria-valuetext={spokenLabel(label)}
           onPointerDown={onTrackDown}
           onPointerMove={onTrackMove}
           onPointerUp={onTrackUp}
@@ -326,7 +337,7 @@ export function MagazineViewer({ magazine }: Props) {
             </button>
             <span className={styles.count}>
               <b>{label}</b>
-              <span className={styles.countTotal}> / {P}</span>
+              <span className={styles.countTotal}> / {lastFolio}</span>
             </span>
             <button
               type="button"
