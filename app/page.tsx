@@ -78,6 +78,17 @@ export default function HomePage() {
                 </li>
               );
             })}
+
+            {/* 번외: 수업 주차 밖의 작업 */}
+            <li className={styles.item}>
+              <span className={styles.format}>번외</span>
+              <Link href="/extra/magazine" className={styles.itemLink}>
+                <span className={styles.weekNumber}>
+                  <span className={styles.extraMark}>번외</span>
+                </span>
+                <span className={styles.constraint}>매거진</span>
+              </Link>
+            </li>
           </ol>
         </ScrollReveal>
       </section>

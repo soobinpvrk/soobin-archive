@@ -1,0 +1,391 @@
+/* 매거진 뷰어. 사이트는 검은 바탕이지만 이 화면만 종이가 잘 보이도록
+   밝은 회색 무대에 검은 글자·검은 진행 막대로 둔다. 색은 흑백만 쓴다. */
+.viewer {
+  --mz-bg: #e6e6e6;
+  --mz-ink: #111111;
+  --mz-dim: #7c7c7c;
+  --mz-rail: #c6c6c6;
+  --mz-panel: #f5f5f5;
+  --mz-hover: rgba(17, 17, 17, 0.07);
+
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  color: var(--mz-ink);
+}
+
+.stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  outline: none;
+}
+
+.grab .canvas {
+  cursor: grab;
+}
+
+.grab .canvas:active {
+  cursor: grabbing;
+}
+
+.pointer .canvas {
+  cursor: pointer;
+}
+
+.loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--mz-dim);
+  pointer-events: none;
+}
+
+/* 소개 화면 문구: 캔버스 위에 얹되 버튼만 누를 수 있다 */
+.intro {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: clamp(20px, 5vh, 48px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.introShown {
+  opacity: 1;
+  transform: none;
+}
+
+.introShown .openButton {
+  pointer-events: auto;
+}
+
+.introTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  line-height: 1.3;
+}
+
+.introSubtitle {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--mz-dim);
+  line-height: 1.4;
+}
+
+.openButton {
+  margin-top: 12px;
+  height: 44px;
+  padding: 0 26px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--mz-ink);
+  color: #ffffff;
+  font: 600 0.9rem/1 var(--font-body);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.openButton:hover {
+  transform: translateY(-1px);
+}
+
+.introHint {
+  margin: 4px 0 0;
+  font-size: 0.75rem;
+  color: var(--mz-dim);
+  line-height: 1.4;
+}
+
+/* 하단: 검은 진행 막대 + 조작 줄 */
+.bar {
+  flex: none;
+  width: min(760px, 100%);
+  margin: 0 auto;
+  padding: 4px 0 calc(14px + env(safe-area-inset-bottom, 0px));
+}
+
+.track {
+  position: relative;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  touch-action: none;
+  outline: none;
+}
+
+.rail {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 3px;
+  background: var(--mz-rail);
+}
+
+.fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: var(--mz-ink);
+  transition: width 0.25s ease;
+}
+
+.knob {
+  position: absolute;
+  top: 50%;
+  width: 3px;
+  height: 14px;
+  margin-left: -1.5px;
+  background: var(--mz-ink);
+  transform: translateY(-50%);
+  transition: left 0.25s ease;
+}
+
+.tick {
+  position: absolute;
+  top: -4px;
+  width: 1px;
+  height: 11px;
+  background: var(--mz-dim);
+  opacity: 0.55;
+}
+
+.track:focus-visible .rail {
+  outline: 2px solid var(--mz-ink);
+  outline-offset: 6px;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.controlsLeft,
+.controlsRight {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.iconButton {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--mz-ink);
+  cursor: pointer;
+}
+
+.iconButton svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.iconButton:hover:not(:disabled) {
+  background: var(--mz-hover);
+}
+
+.iconButton:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.count {
+  min-width: 6.5em;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.count b {
+  font-weight: 700;
+}
+
+.countTotal {
+  color: var(--mz-dim);
+}
+
+.textButton {
+  height: 36px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--mz-ink);
+  font: 600 0.85rem/1 var(--font-body);
+  cursor: pointer;
+}
+
+.textButton:hover,
+.textButton[aria-expanded="true"] {
+  background: var(--mz-hover);
+}
+
+.iconButton:focus-visible,
+.textButton:focus-visible,
+.openButton:focus-visible,
+.tocItem:focus-visible {
+  outline: 2px solid var(--mz-ink);
+  outline-offset: 2px;
+}
+
+/* 목차 */
+.toc {
+  position: absolute;
+  right: 0;
+  bottom: 8px;
+  width: min(400px, 100%);
+  max-height: calc(100% - 16px);
+  overflow-y: auto;
+  padding: 8px;
+  background: var(--mz-panel);
+  border: 1px solid var(--mz-ink);
+  z-index: 5;
+}
+
+.tocHeading {
+  margin: 6px 10px 8px;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--mz-dim);
+}
+
+.tocList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tocItem {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.6em minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 10px;
+  padding: 9px 10px;
+  border: 0;
+  background: transparent;
+  color: var(--mz-ink);
+  font: 500 0.88rem/1.4 var(--font-body);
+  text-align: left;
+  cursor: pointer;
+}
+
+.tocItem:hover {
+  background: var(--mz-hover);
+}
+
+.tocCurrent {
+  background: var(--mz-ink);
+  color: #ffffff;
+}
+
+.tocCurrent:hover {
+  background: var(--mz-ink);
+}
+
+.tocCurrent .tocPage {
+  color: #bdbdbd;
+}
+
+.tocNumber {
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+.tocPage {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  color: var(--mz-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.tocTitle {
+  min-width: 0;
+}
+
+/* WebGL을 못 쓰는 환경 */
+.fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 0 80px;
+  overflow-y: auto;
+}
+
+.fallbackNote {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--mz-dim);
+}
+
+.fallbackPage {
+  width: min(420px, 100%);
+  height: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 560px) {
+  .bar {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .count {
+    min-width: 5.2em;
+  }
+
+  .textButton {
+    padding: 0 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fill,
+  .knob,
+  .intro,
+  .openButton {
+    transition: none;
+  }
+}

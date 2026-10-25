@@ -106,7 +106,20 @@ a.itemLink:hover {
   color: inherit;
 }
 
+/* 번외 줄. 주차 번호 자리는 넓은 화면에서 비워 두고(왼쪽 칸에 '번외'),
+   좁은 화면에서는 왼쪽 칸이 사라지므로 번호 자리에 '번외'를 보인다. */
+.extraMark {
+  display: none;
+  font-family: var(--font-body);
+  font-size: 0.82em;
+  font-weight: 700;
+}
+
 @media (max-width: 860px) {
+  .extraMark {
+    display: inline;
+  }
+
   .description {
     white-space: normal;
   }
