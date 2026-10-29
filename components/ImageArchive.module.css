@@ -204,6 +204,12 @@
   transition: color 0.15s ease;
 }
 
+/* 제목이 없는 블록은 캡션 줄을 그리지 않고, 그 높이(위 여백 12px +
+   0.9em × 줄 높이 1.4)만큼 아래를 비워 칸 높이와 행 간격을 맞춘다. */
+.untitled {
+  padding-bottom: calc(12px + 0.9em * 1.4);
+}
+
 .cellButton:hover .cellTitle,
 .cellButton:focus-visible .cellTitle {
   color: var(--color-text);

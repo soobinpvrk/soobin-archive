@@ -11,6 +11,11 @@ export type ArchiveItem = Omit<ArchiveImage, "src"> & { src: string | null };
 
 type View = "grid" | "table";
 
+/* 제목이 비어 있으면 대체 텍스트는 "05 이미지 01"처럼 번호로 쓴다. */
+function imageLabel(item: ArchiveItem) {
+  return item.title || `05 이미지 ${item.id}`;
+}
+
 type Props = {
   items: ArchiveItem[];
   about: string;
@@ -100,13 +105,13 @@ export function ImageArchive({ items, about, author, started, modified }: Props)
             <li key={item.id} className={styles.cell}>
               <button
                 type="button"
-                className={styles.cellButton}
+                className={`${styles.cellButton} ${item.title ? "" : styles.untitled}`}
                 onClick={() => setOpenIndex(index)}
               >
                 <span className={styles.square}>
                   <Thumb item={item} sizes="(max-width: 720px) 50vw, (max-width: 1100px) 33vw, 20vw" />
                 </span>
-                <span className={styles.cellTitle}>{item.title}</span>
+                {item.title && <span className={styles.cellTitle}>{item.title}</span>}
               </button>
             </li>
           ))}
@@ -139,7 +144,9 @@ export function ImageArchive({ items, about, author, started, modified }: Props)
                       setOpenIndex(index);
                     }}
                   >
-                    {item.title}
+                    {item.title || (
+                      <span className={styles.visuallyHidden}>{imageLabel(item)}</span>
+                    )}
                   </button>
                 </td>
                 <td className={styles.dateCol}>{item.date}</td>
@@ -167,7 +174,7 @@ function Thumb({ item, sizes }: { item: ArchiveItem; sizes: string }) {
   return (
     <Image
       src={item.src}
-      alt={item.title}
+      alt={imageLabel(item)}
       fill
       sizes={sizes}
       className={styles.image}
@@ -234,7 +241,7 @@ function Detail({ item, author, onClose, onPrev, onNext }: DetailProps) {
       className={styles.overlay}
       role="dialog"
       aria-modal="true"
-      aria-label={item.title}
+      aria-label={imageLabel(item)}
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
@@ -268,7 +275,7 @@ function Detail({ item, author, onClose, onPrev, onNext }: DetailProps) {
             <Image
               key={item.src}
               src={item.src}
-              alt={item.title}
+              alt={imageLabel(item)}
               fill
               sizes="(max-width: 860px) 100vw, 70vw"
               className={styles.image}
@@ -281,9 +288,11 @@ function Detail({ item, author, onClose, onPrev, onNext }: DetailProps) {
       </div>
 
       <aside className={styles.panel}>
-        <h2 className={styles.panelTitle}>{item.title}</h2>
+        {item.title && <h2 className={styles.panelTitle}>{item.title}</h2>}
         <p className={styles.panelDate}>{item.date}</p>
-        <p className={styles.panelDescription}>{item.description}</p>
+        {item.description && (
+          <p className={styles.panelDescription}>{item.description}</p>
+        )}
         <dl className={`${styles.meta} ${styles.panelMeta}`}>
           <dt>Added</dt>
           <dd>{item.date}</dd>
