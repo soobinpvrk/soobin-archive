@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MAGAZINES } from "@/data/magazine";
 import { getAllWeeks } from "@/lib/weeks";
 import { Greeting } from "@/components/Greeting";
 import { ScrollReveal } from "@/components/ScrollReveal";
@@ -79,16 +80,25 @@ export default function HomePage() {
               );
             })}
 
-            {/* 번외: 수업 주차 밖의 작업 */}
-            <li className={styles.item}>
-              <span className={styles.format}>번외</span>
-              <Link href="/extra/magazine" className={styles.itemLink}>
-                <span className={styles.weekNumber}>
-                  <span className={styles.extraMark}>번외</span>
-                </span>
-                <span className={styles.constraint}>매거진</span>
-              </Link>
-            </li>
+            {/* 번외: 수업 주차 밖의 작업. 매거진 한 권에 한 줄 */}
+            {MAGAZINES.map((m, i) => (
+              <li key={m.slug} className={styles.item}>
+                <span className={styles.format}>{i === 0 ? "번외" : ""}</span>
+                <Link
+                  href={`/extra/magazine/${m.slug}`}
+                  className={styles.itemLink}
+                >
+                  <span
+                    className={`${styles.category} ${
+                      i > 0 ? styles.categoryRepeat : ""
+                    }`}
+                  >
+                    매거진
+                  </span>
+                  <span className={styles.constraint}>{m.label}</span>
+                </Link>
+              </li>
+            ))}
           </ol>
         </ScrollReveal>
       </section>
