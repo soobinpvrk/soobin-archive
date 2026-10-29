@@ -76,8 +76,8 @@ export const INTERVIEWEE: Magazine = {
   ],
 };
 
-/* 메인 목록에 보이는 순서 */
-export const MAGAZINES: Magazine[] = [INTERVIEWER, INTERVIEWEE];
+/* 매거진 상세 탭에 보이는 순서 */
+export const MAGAZINES: Magazine[] = [INTERVIEWEE, INTERVIEWER];
 
 export function getMagazine(slug: string) {
   return MAGAZINES.find((m) => m.slug === slug);

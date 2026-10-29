@@ -1,11 +1,12 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { ArchiveImage } from "@/data/introduction-5";
 import styles from "./ImageArchive.module.css";
 
-/* src가 null이면 파일이 아직 없는 자리라 회색 플레이스홀더로 그린다. */
+/* src가 null이면 파일이 아직 없는 자리라 테두리만 있는 플레이스홀더로 그린다. */
 export type ArchiveItem = Omit<ArchiveImage, "src"> & { src: string | null };
 
 type View = "grid" | "table";
@@ -32,25 +33,40 @@ export function ImageArchive({ items, about, author, started, modified }: Props)
   );
 
   return (
-    <>
+    <div className={styles.archive}>
+      {/* 정보 칸 하나가 아래 블록 한 칸과 같은 폭이 되도록 같은 열 그리드를 쓴다. */}
       <section className={styles.info}>
         <div className={styles.infoColumn}>
           <h2 className={styles.infoLabel}>Info</h2>
-          <dl className={styles.meta}>
-            <dt>Started</dt>
-            <dd>{started}</dd>
-            <dt>Modified</dt>
-            <dd>{modified}</dd>
-            <dt>Length</dt>
-            <dd>
-              {items.length} {items.length === 1 ? "image" : "images"}
-            </dd>
+          <p className={styles.aboutText}>{about}</p>
+          <dl className={styles.infoMeta}>
+            <div className={styles.metaRow}>
+              <dt>Started</dt>
+              <dd>{started}</dd>
+            </div>
+            <div className={styles.metaRow}>
+              <dt>Modified</dt>
+              <dd>{modified}</dd>
+            </div>
+            <div className={styles.metaRow}>
+              <dt>Length</dt>
+              <dd>{items.length}</dd>
+            </div>
           </dl>
         </div>
 
-        <div className={`${styles.infoColumn} ${styles.about}`}>
-          <h2 className={styles.infoLabel}>About</h2>
-          <p className={styles.aboutText}>{about}</p>
+        <div className={styles.infoColumn}>
+          <h2 className={styles.infoLabel}>Author</h2>
+          <p className={styles.infoValue}>{author}</p>
+        </div>
+
+        <div className={styles.infoColumn}>
+          <h2 className={styles.infoLabel}>Appears in</h2>
+          <p className={styles.infoValue}>
+            <Link href="/#introduction" className={styles.infoLink}>
+              Self-Introduction
+            </Link>
+          </p>
         </div>
 
         <div className={styles.infoColumn}>
@@ -76,7 +92,8 @@ export function ImageArchive({ items, about, author, started, modified }: Props)
           <li className={styles.cell}>
             {/* 업로드 기능은 없다. 모양만 보여 주는 자리. */}
             <div className={`${styles.square} ${styles.dropzone}`} aria-hidden="true">
-              <span>Drop or choose files</span>
+              <span className={styles.plus} />
+              <span className={styles.dropChip}>Drop or choose files</span>
             </div>
           </li>
           {items.map((item, index) => (
@@ -87,7 +104,7 @@ export function ImageArchive({ items, about, author, started, modified }: Props)
                 onClick={() => setOpenIndex(index)}
               >
                 <span className={styles.square}>
-                  <Thumb item={item} sizes="(max-width: 600px) 50vw, (max-width: 1024px) 33vw, 20vw" />
+                  <Thumb item={item} sizes="(max-width: 720px) 50vw, (max-width: 1100px) 33vw, 20vw" />
                 </span>
                 <span className={styles.cellTitle}>{item.title}</span>
               </button>
@@ -141,12 +158,12 @@ export function ImageArchive({ items, about, author, started, modified }: Props)
           onNext={() => step(1)}
         />
       )}
-    </>
+    </div>
   );
 }
 
 function Thumb({ item, sizes }: { item: ArchiveItem; sizes: string }) {
-  if (!item.src) return <span className={styles.placeholder} />;
+  if (!item.src) return <span className={styles.emptyThumb} />;
   return (
     <Image
       src={item.src}

@@ -38,11 +38,22 @@ export default async function MagazinePage({
           <span className={styles.separator} aria-hidden="true">/</span>
           <Link href="/#introduction">번외</Link>
           <span className={styles.separator} aria-hidden="true">/</span>
-          <Link href="/#introduction">매거진</Link>
-          <span className={styles.separator} aria-hidden="true">/</span>
           <Link href={`/extra/magazine/${magazine.slug}`} aria-current="page">
-            {magazine.label}
+            매거진
           </Link>
+        </nav>
+
+        <nav className={styles.tabs} aria-label="매거진">
+          {MAGAZINES.map((m) => (
+            <Link
+              key={m.slug}
+              href={`/extra/magazine/${m.slug}`}
+              className={styles.tab}
+              aria-current={m.slug === magazine.slug ? "page" : undefined}
+            >
+              {m.label}
+            </Link>
+          ))}
         </nav>
       </header>
 

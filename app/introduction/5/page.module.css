@@ -1,18 +1,30 @@
-.page {
+/* 목차 칸은 주차 상세(app/introduction/[week]/page.module.css의 .layout)와
+   같은 열 그리드로 잡고, 이미지 아카이브는 둘째 칸부터 오른쪽 끝까지 쓴다.
+   주차 상세의 그리드 값을 바꾸면 여기도 같이 바꾼다. */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) minmax(0, 820px) minmax(180px, 1fr);
+  column-gap: clamp(32px, 4vw, 72px);
   width: 100%;
-  padding: 40px clamp(var(--gutter), 4vw, 64px) 120px;
+  padding: 48px clamp(24px, 3vw, 48px) 120px;
 }
 
+.archive {
+  grid-column: 2 / -1;
+  min-width: 0;
+}
+
+/* 제목처럼 크게 쓰는 breadcrumb */
 .breadcrumb {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: 0.5em;
+  gap: 0.3em;
   margin-bottom: 72px;
   font-family: var(--font-display);
-  font-size: 1.05em;
+  font-size: clamp(1.8rem, 2.6vw, 2.4rem);
   font-weight: 700;
-  line-height: 1.35;
+  line-height: 1.2;
 }
 
 /* globals.css의 전역 a:hover 반전을 끄고 글자 색만 바꾼다. */
@@ -36,12 +48,16 @@
   color: #454545;
 }
 
-@media (max-width: 860px) {
-  .page {
-    padding-top: 28px;
+@media (max-width: 1050px) {
+  .layout {
+    grid-template-columns: minmax(155px, 200px) minmax(0, 820px);
+    column-gap: clamp(28px, 4vw, 48px);
   }
+}
 
-  .breadcrumb {
-    margin-bottom: 48px;
+@media (max-width: 720px) {
+  .layout {
+    display: block;
+    padding-top: 104px;
   }
 }

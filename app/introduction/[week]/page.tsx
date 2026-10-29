@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getAllWeeks } from "@/lib/weeks";
 import { FigureWithCaption } from "@/components/FigureWithCaption";
@@ -8,6 +7,7 @@ import { LifeGraph } from "@/components/LifeGraph";
 import { QA } from "@/components/QA";
 import { RotatingHomeButton } from "@/components/RotatingHomeButton";
 import { SectionTitle, headingClassName } from "@/components/SectionTitle";
+import { WeekToc } from "@/components/WeekToc";
 import styles from "./page.module.css";
 
 /* 전용 페이지가 있는 주차는 app/introduction/<번호>/page.tsx가 맡는다. */
@@ -35,46 +35,7 @@ export default async function WeekPage({
     <main className={styles.layout}>
       <RotatingHomeButton />
 
-      <aside className={styles.toc}>
-        <nav aria-label="자기소개 주차 목차">
-          <ol className={styles.tocList}>
-            {weeks.map((entry) => {
-              const isCurrent = entry.week === current.week;
-              const itemClassName = [
-                styles.tocItem,
-                entry.status !== "done" ? styles.upcoming : "",
-                isCurrent ? styles.current : "",
-              ]
-                .filter(Boolean)
-                .join(" ");
-              const label = (
-                <>
-                  <span className={styles.tocNumber}>
-                    {String(entry.week).padStart(2, "0")}
-                  </span>
-                  <span>{entry.constraint}</span>
-                </>
-              );
-
-              return (
-                <li key={entry.week}>
-                  {entry.status === "done" ? (
-                    <Link
-                      href={`/introduction/${entry.week}`}
-                      className={itemClassName}
-                      aria-current={isCurrent ? "page" : undefined}
-                    >
-                      {label}
-                    </Link>
-                  ) : (
-                    <span className={itemClassName}>{label}</span>
-                  )}
-                </li>
-              );
-            })}
-          </ol>
-        </nav>
-      </aside>
+      <WeekToc weeks={weeks} current={current.week} />
 
       <article className={styles.week}>
         <header className={styles.header}>

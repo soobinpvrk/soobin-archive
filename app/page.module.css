@@ -106,27 +106,18 @@ a.itemLink:hover {
   color: inherit;
 }
 
-/* 번외 줄의 카테고리('매거진'). 주차 번호보다 글자가 많아 작게 쓰고,
-   번호 칸(2.3em)을 넘치는 만큼은 칸 사이 간격 안에서 흘러넘치게 둔다.
-   칸 폭은 그대로라 제목 시작 위치가 주차 줄과 같다. */
-.category {
+/* 번외 줄. 주차 번호 자리는 넓은 화면에서 비워 두고(왼쪽 칸에 '번외'),
+   좁은 화면에서는 왼쪽 칸이 사라지므로 번호 자리에 '번외'를 보인다. */
+.extraMark {
+  display: none;
   font-family: var(--font-body);
-  font-size: 0.78em;
+  font-size: 0.82em;
   font-weight: 700;
-  color: inherit;
-  line-height: 1;
-  white-space: nowrap;
-}
-
-/* 넓은 화면에서는 첫 줄에만 보인다(형식 칸과 같은 규칙). */
-.categoryRepeat {
-  visibility: hidden;
 }
 
 @media (max-width: 860px) {
-  /* 형식 칸이 사라지므로 카테고리를 매 줄 보인다. */
-  .categoryRepeat {
-    visibility: visible;
+  .extraMark {
+    display: inline;
   }
 
   .description {

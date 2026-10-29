@@ -1,12 +1,44 @@
-/* ── 정보 영역: Info / About(2칸) / View ── */
-.info {
+/* 정보 영역과 블록 그리드가 같은 열 그리드를 쓴다. 열 수는 화면 폭이 아니라
+   아카이브가 실제로 차지하는 폭(콘텐츠 폭)으로 정한다.
+   1400px 이상 5열, 1100px 이상 4열, 800px 이상 3열, 그 아래 2열. */
+.archive {
+  --columns: 2;
+  --column-gap: 20px;
+  container-type: inline-size;
+}
+
+.info,
+.grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  column-gap: clamp(24px, 3vw, 48px);
-  row-gap: 32px;
-  padding-top: 16px;
-  border-top: 1px solid var(--color-border);
-  margin-bottom: 72px;
+  grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+  column-gap: var(--column-gap);
+}
+
+@container (min-width: 800px) {
+  .info,
+  .grid {
+    --columns: 3;
+  }
+}
+
+@container (min-width: 1100px) {
+  .info,
+  .grid {
+    --columns: 4;
+  }
+}
+
+@container (min-width: 1400px) {
+  .info,
+  .grid {
+    --columns: 5;
+  }
+}
+
+/* ── 정보 영역: Info | Author | Appears in | View ── */
+.info {
+  row-gap: 40px;
+  margin-bottom: 104px;
   font-size: 0.9em;
   line-height: 1.5;
 }
@@ -15,69 +47,95 @@
   min-width: 0;
 }
 
-.about {
-  grid-column: span 2;
-}
-
+/* 칸 맨 위의 작은 라벨과, 칸 폭 전체에 긋는 선 */
 .infoLabel {
-  margin-bottom: 12px;
-  font-family: var(--font-display);
-  font-size: 1em;
-  font-weight: 700;
-  color: var(--color-text);
-}
-
-.meta {
-  display: grid;
-  grid-template-columns: max-content minmax(0, 1fr);
-  column-gap: 24px;
-  row-gap: 2px;
-}
-
-.meta dt {
+  margin: 0 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--color-border);
+  font-family: var(--font-body);
+  font-size: 0.9em;
+  font-weight: 400;
+  line-height: 1.4;
   color: var(--color-text-dim);
 }
 
-.meta dd {
-  font-variant-numeric: tabular-nums;
+.infoValue {
+  margin: 0;
 }
 
 .aboutText {
-  max-width: 34em;
+  margin: 0 0 14px;
+  color: var(--color-text);
+  word-break: keep-all;
+}
+
+.infoMeta {
+  margin: 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.metaRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.metaRow dt {
   color: var(--color-text-dim);
 }
 
+.metaRow dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+/* globals.css의 전역 a:hover 반전을 끄고 글자 색만 바꾼다. */
+.infoLink {
+  color: var(--color-text);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.infoLink:hover,
+.infoLink:focus-visible {
+  background: none;
+  color: var(--color-text-dim);
+}
+
+/* 세로로 쌓은 Grid / Table. 왼쪽 2px 막대는 현재 항목 옆만 밝힌다. */
 .toggle {
   display: flex;
-  gap: 16px;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .toggleButton {
-  padding: 0;
+  padding: 2px 0 2px 10px;
   border: none;
+  border-left: 2px solid var(--color-border);
   background: none;
   color: var(--color-text-dim);
   font: inherit;
+  text-align: left;
   cursor: pointer;
   transition: color 0.15s ease;
 }
 
-.toggleButton:hover,
-.toggleButton[aria-pressed="true"] {
+.toggleButton:hover {
   color: var(--color-text);
 }
 
 .toggleButton[aria-pressed="true"] {
-  text-decoration: underline;
-  text-underline-offset: 0.25em;
+  border-left-color: var(--color-text);
+  color: var(--color-text);
 }
 
-/* ── 그리드 ── */
+/* ── 블록 그리드 ── */
 .grid {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  column-gap: clamp(16px, 2.4vw, 40px);
-  row-gap: clamp(32px, 4vw, 64px);
+  row-gap: 104px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -95,10 +153,11 @@
   background: none;
   color: inherit;
   font: inherit;
-  text-align: left;
+  text-align: center;
   cursor: pointer;
 }
 
+/* 정사각형 칸. 이미지는 잘리지 않게 칸 가운데에 두고 배경은 비운다. */
 .square {
   position: relative;
   display: block;
@@ -109,18 +168,23 @@
 
 .image {
   object-fit: contain;
+  object-position: center;
 }
 
+/* 파일이 아직 없는 블록: 칸 크기의 테두리 박스 */
+.emptyThumb {
+  position: absolute;
+  inset: 0;
+  display: block;
+  border: 1px solid var(--color-border);
+}
+
+/* 상세 보기에서 파일이 없을 때 */
 .placeholder {
   position: absolute;
   inset: 0;
   display: block;
   background: #262626;
-}
-
-.cellButton:hover .placeholder,
-.cellButton:focus-visible .placeholder {
-  background: #303030;
 }
 
 .cellButton:focus-visible {
@@ -130,9 +194,9 @@
 
 .cellTitle {
   display: block;
-  margin-top: 10px;
+  margin-top: 12px;
   overflow: hidden;
-  font-size: 0.85em;
+  font-size: 0.9em;
   line-height: 1.4;
   color: var(--color-text-dim);
   text-overflow: ellipsis;
@@ -140,20 +204,62 @@
   transition: color 0.15s ease;
 }
 
-.cellButton:hover .cellTitle {
+.cellButton:hover .cellTitle,
+.cellButton:focus-visible .cellTitle {
   color: var(--color-text);
 }
 
+/* 첫 칸: Are.na의 추가 블록처럼 채운 정사각형, 가운데 얇은 +, 왼쪽 아래 칩 */
 .dropzone {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-  border: 1px dashed #4a4a4a;
+  background: #1a1a1a;
+}
+
+.plus {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 32px;
+  height: 32px;
+  transform: translate(-50%, -50%);
+}
+
+.plus::before,
+.plus::after {
+  content: "";
+  position: absolute;
+  background: var(--color-text-dim);
+}
+
+.plus::before {
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 100%;
+  transform: translateX(-50%);
+}
+
+.plus::after {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  transform: translateY(-50%);
+}
+
+.dropChip {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  max-width: calc(100% - 20px);
+  padding: 3px 7px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #262626;
   color: var(--color-text-dim);
-  font-size: 0.85em;
+  font-size: 0.75em;
   line-height: 1.4;
-  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* ── 테이블 ── */
@@ -229,6 +335,21 @@
 }
 
 /* ── 상세 보기 ── */
+.meta {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  column-gap: 24px;
+  row-gap: 2px;
+}
+
+.meta dt {
+  color: var(--color-text-dim);
+}
+
+.meta dd {
+  font-variant-numeric: tabular-nums;
+}
+
 .overlay {
   position: fixed;
   inset: 0;
@@ -313,21 +434,6 @@
   border-top: 1px solid var(--color-border);
 }
 
-@media (max-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .info {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .about {
-    grid-column: 1 / -1;
-    grid-row: 2;
-  }
-}
-
 @media (max-width: 860px) {
   /* 모바일 상세: 이미지 위, 정보 아래로 세로로 쌓고 전체를 스크롤한다. */
   .overlay {
@@ -353,15 +459,5 @@
   .panel {
     padding: 0 var(--gutter) 48px;
     overflow: visible;
-  }
-}
-
-@media (max-width: 600px) {
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .info {
-    margin-bottom: 48px;
   }
 }
